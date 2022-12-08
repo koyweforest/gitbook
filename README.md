@@ -5,7 +5,7 @@ description: Infraestructura Crypto para Latinoamérica
 # 👋 Bienvenido a Koywe 🌳
 
 {% hint style="info" %}
-**Pro Tip**: Una demo vale más que mil palabras. [Ve nuestra plataforma en acción](https://widget.koywe.com/) o nuestr o [video demo](https://youtu.be/3Idumr8KGvI).
+**Pro Tip**: Una demo vale más que mil palabras. [Ve nuestra plataforma en acción](https://widget.koywe.com/) o nuestro [video demo](https://youtu.be/3Idumr8KGvI).
 {% endhint %}
 
 ## ¿Qué es Koywe?
