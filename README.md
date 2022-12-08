@@ -5,12 +5,12 @@ description: Infraestructura Crypto para Latinoamérica
 # 👋 Bienvenido a Koywe 🌳
 
 {% hint style="info" %}
-**Pro Tip**: Una demo vale más que mil palabras. [Ve nuestra plataforma en acción](https://widget.koywe.com/).
+**Pro Tip**: Una demo vale más que mil palabras. [Ve nuestra plataforma en acción](https://widget.koywe.com/) o nuestr o [video demo](https://youtu.be/3Idumr8KGvI).
 {% endhint %}
 
 ## ¿Qué es Koywe?
 
-En Koywe hacemos que la separación entre el dinero tradicional y el digital desaparezca. En la sección de **¿Qué es Koywe?** puedes encontrar mucha más información, como nuestro propósito y orígenes, un detalle de nuestra plataforma y servicios, y otros detalles sabrosos.
+En Koywe hacemos que la separación entre el dinero tradicional y el digital desaparezca. En la sección **¿Qué es Koywe?** puedes encontrar mucha más información, como nuestro propósito y orígenes, un detalle de nuestra plataforma y servicios, y otros detalles sabrosos.
 
 {% content-ref url="sobre-koywe/que-es-koywe/" %}
 [que-es-koywe](sobre-koywe/que-es-koywe/)
@@ -33,7 +33,7 @@ La demo de nuestra rampa
 {% endembed %}
 
 {% embed url="https://github.com/koyweforest/koywe-widget-template/" %}
-El repo del template
+El repo de la demo. Clónalo a tu gusto
 {% endembed %}
 
 ## Documentación Técnica

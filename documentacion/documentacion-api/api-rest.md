@@ -1,29 +1,9 @@
+---
+description: Próximamente podrás encontrar la documentación de nuestra API REST
+---
+
 # 🚀 API REST
 
 {% hint style="info" %}
-**GitBook tip:** Try out a range of different content types to keep folks engaged and interested in each feature, some content types work for different chunks of information
+**Apurado:** ¿Necesitas la API REST urgente? Escríbenos a [hola@koywe.com](mailto:hola@koywe.com)
 {% endhint %}
-
-<details>
-
-<summary>As a Guest User</summary>
-
-
-
-</details>
-
-<details>
-
-<summary>As an Editor</summary>
-
-
-
-</details>
-
-<details>
-
-<summary>As an Admin</summary>
-
-
-
-</details>
