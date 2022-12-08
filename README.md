@@ -12,8 +12,8 @@ description: Infraestructura Crypto para Latinoamérica
 
 En Koywe hacemos que la separación entre el dinero tradicional y el digital desaparezca. En la sección de **¿Qué es Koywe?** puedes encontrar mucha más información, como nuestro propósito y orígenes, un detalle de nuestra plataforma y servicios, y otros detalles sabrosos.
 
-{% content-ref url="sobre-koywe/que-es-koywe.md" %}
-[que-es-koywe.md](sobre-koywe/que-es-koywe.md)
+{% content-ref url="sobre-koywe/que-es-koywe/" %}
+[que-es-koywe](sobre-koywe/que-es-koywe/)
 {% endcontent-ref %}
 
 ## Casos de Uso

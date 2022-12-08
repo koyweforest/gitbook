@@ -4,7 +4,9 @@
 
 ## Sobre Koywe
 
-* [🌳 ¿Qué es Koywe?](sobre-koywe/que-es-koywe.md)
+* [🌳 ¿Qué es Koywe?](sobre-koywe/que-es-koywe/README.md)
+  * [📥 Proceso de Compra](sobre-koywe/que-es-koywe/proceso-de-compra.md)
+  * [📤 Proceso de Venta](sobre-koywe/que-es-koywe/proceso-de-venta.md)
 * [✨ Casos de Uso](sobre-koywe/casos-de-uso.md)
 
 ## Documentación
@@ -13,4 +15,4 @@
 * [🛠 Documentación API](documentacion/documentacion-api/README.md)
   * [🛸 API GraphQL](documentacion/documentacion-api/api-graphql.md)
   * [🚀 API REST](documentacion/documentacion-api/api-rest.md)
-  * [🪝 Webhooks](documentacion/documentacion-api/webhooks.md)
+* [🪝 Webhooks](documentacion/webhooks.md)
