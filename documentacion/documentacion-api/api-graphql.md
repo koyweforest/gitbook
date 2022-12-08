@@ -14,7 +14,7 @@ Envíanos un email a [hola@koywe.com](mailto:hola@koywe.com) para obtener tus cr
 
 Para hacer llamados a la API GraphQL, siempre debes enviar un request POST a la URL base, incluyendo la query y variables como objeto JSON. Un ejemplo en CURL de autenticación (header de Authorization incluido ilustrativamente):
 
-```
+```bash
 curl --request POST \
     --header 'content-type: application/json' \
     --header 'Authorization: Bearer JWTTOKEN' \

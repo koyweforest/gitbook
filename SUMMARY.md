@@ -16,4 +16,4 @@
 * [🛠 Documentación API](documentacion/documentacion-api/README.md)
   * [🛸 API GraphQL](documentacion/documentacion-api/api-graphql.md)
   * [🚀 API REST](documentacion/documentacion-api/api-rest.md)
-* [🪝 Webhooks y Callbacks](documentacion/webhooks-y-callbacks.md)
+* [🪝 Webhooks y Callbacks](documentacion/webhooks.md)

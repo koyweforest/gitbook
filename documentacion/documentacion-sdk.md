@@ -26,7 +26,7 @@ Corre `npm i @koyweforest/koywe-ramp-sdk` en la carpeta de tu proyecto
 
 Usar el widget es muy sencillo. Por ejemplo, hacer que se despliegue el widget al hacer click en un botón:
 
-```
+```jsx
 import { KoyweRampSDK } from '@koyweforest/koywe-ramp-sdk';
 const koywe = new KoyweRampSDK({});
 function App() {
@@ -46,7 +46,7 @@ La lista de monedas que estarán disponibles para el intercambio. Por defecto se
 
 El valor a enviar debe ser un Array de strings, donde cada string es el símbolo de la moneda. Puedes consultar las monedas disponibles en nuestro sitio https://koywe.com
 
-```
+```javascript
 new KoyweRampSDK({currencies: ["CLP", "MXN", "COP", "PEN"]})
 ```
 
@@ -60,7 +60,7 @@ La lista de criptomonedas que estarán disponibles para el intercambio. Por defe
 
 El valor enviado debe ser un Array de strings, donde cada string es el símbolo del cripto que se quiere que esté disponible. Puedes consultar los tokens disponibles en nuestro sitio https://koywe.com
 
-```
+```javascript
 new KoyweRampSDK({tokens: ["ETH"]})
 ```
 
@@ -76,7 +76,7 @@ Si se envía un Array vacío, se mostrarán todos los tokens disponibles en la A
 
 Un parámetro opcional de tipo string que preestablece la dirección a la que se enviará el cripto, saltando la pantalla de validación e introducción de billetera.
 
-```
+```javascript
 new KoyweRampSDK({address: "0x402...12"})
 ```
 
@@ -86,7 +86,7 @@ Si la billetera no es válida, el usuario se verá obligado a ingresar una manua
 
 Parámetro tipo String que representa el email que se usará para la compra de crypto. Si este valor no es un email válido, el usuario deberá ingresar un email manualmente.
 
-```
+```javascript
 new KoyweRampSDK({email: "test@koywe.com"})
 ```
 
@@ -98,7 +98,7 @@ new KoyweRampSDK({email: "test@koywe.com"})
 
 Parámetro tipo String que indica la url a la que redireccionar luego de confirmar un pago en sitios externos.
 
-```
+```javascript
 new KoyweRampSDK({callbackUrl: "https://koywe.com......"})
 ```
 
@@ -110,7 +110,7 @@ new KoyweRampSDK({callbackUrl: "https://koywe.com......"})
 
 Parámetro tipo String que indica el id de cliente a utilizar por el widget. De acuerdo al acuerdo con Koywe, este id permite acceso a distintos medios de pago y otras condiciones operativas.
 
-```
+```javascript
 new KoyweRampSDK({clientId: "2781......"})
 ```
 
@@ -122,7 +122,7 @@ Revisa la sección [Credenciales](credenciales.md) para más información y ver 
 
 Parámetro booleano opcional para activar el modo de pruebas (transacciones no válidas).
 
-```
+```javascript
 new KoyweRampSDK({testing: true})
 ```
 
