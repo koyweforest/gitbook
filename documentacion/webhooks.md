@@ -4,11 +4,11 @@ description: No nos busques, nosotros te llamaremos.
 
 # 🪝 Webhooks y Callbacks
 
-Para facilitar la integración, tenemos la posibilidad de alertarte cuando pasa algo o de definir formas de validar ciertas cosas contigo antes de ejectur las transacciones.
+Para facilitar la integración, tenemos la posibilidad de alertarte cuando pasa algo o de definir formas de validar ciertas cosas contigo antes de ejecutar las transacciones.
 
 ## Webhook de Eventos
 
-Podrás definir una URL para recibir llamados cada vez que se gatille un evento cada vez que suceda algo importante para una transacción específica. Los posibles eventos son:
+Podrás definir una URL para recibir llamados cada vez que se gatille un evento cuando suceda algo importante para una transacción específica. Los posibles eventos son:
 
 * `payment_received`: pago confirmado por el medio de pago
 * `payment_rejected`: pago cancelado o rechazado
@@ -36,7 +36,7 @@ Ejemplo de evento reportado:
 
 ## Callback de Autenticación
 
-Podrás definir una URL en tu API que nos confirme que un usuario puede operar en tu contexto de cliente. De esta forma, cada vez un usuario quiera comprar, vender, o revisar información privada, revisaremos contigo antes de dejarlo actuar.
+Podrás definir una URL en tu API que nos confirme que un usuario puede operar en tu contexto de cliente. De esta forma, cada vez que un usuario quiera comprar, vender, o revisar información privada, revisaremos contigo antes de dejarlo actuar.
 
 Nuestra plataforma asume que devolverás _algo_ que se parezca a un booleano positivo y soporta varios métodos de autenticación.
 

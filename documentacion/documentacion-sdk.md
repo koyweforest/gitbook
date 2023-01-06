@@ -12,7 +12,7 @@ description: La forma más fácil de integrar Koywe
 
 El SDK es un paquete de NPM que instalas en tu proyecto. Puedes configurar varios parámetros para facilitar aún más la interacción con tus usuarios e incluso hacer que se salten algunos pasos si agregas un [Client ID](credenciales.md).
 
-Activar el widget desplegará un overlay donde tus usuarios podrá realizar el [Proceso de Compra](../sobre-koywe/que-es-koywe/proceso-de-compra.md) y próximamente el de [Venta](../sobre-koywe/que-es-koywe/proceso-de-venta.md), sin tener salir de tu sitio web o aplicación.
+Activar el widget desplegará un overlay donde tus usuarios podrá realizar el [Proceso de Compra](../sobre-koywe/que-es-koywe/proceso-de-compra.md) y próximamente el de [Venta](../sobre-koywe/que-es-koywe/proceso-de-venta.md), sin tener que salir de tu sitio web o aplicación.
 
 <figure><img src="../.gitbook/assets/Screen Shot 2022-12-08 at 13.29.09.png" alt=""><figcaption><p>Overlay con la rampa de Koywe</p></figcaption></figure>
 
@@ -52,7 +52,7 @@ new KoyweRampSDK({currencies: ["CLP", "MXN", "COP", "PEN"]})
 
 En este ejemplo sólo estarán disponibles CLP, MXN, COP y PEN.
 
-Si se envía un Array vacío, se mostrarán todas las monedas disponibles. Puedes configurar cualquier moneda, pero si no está disponible desde la API se ignorará..
+Si se envía un Array vacío, se mostrarán todas las monedas disponibles. Puedes configurar cualquier moneda, pero si no está disponible desde la API se ignorará.
 
 ### tokens
 
@@ -106,7 +106,7 @@ new KoyweRampSDK({callbackUrl: "https://koywe.com......"})
 **Importante**: Si no especificas una URL, el usuario será redirigido al sitio web de koywe al finalizar la transacción.
 {% endhint %}
 
-### clientId
+### client Id
 
 Parámetro tipo String que indica el id de cliente a utilizar por el widget. De acuerdo al acuerdo con Koywe, este id permite acceso a distintos medios de pago y otras condiciones operativas.
 

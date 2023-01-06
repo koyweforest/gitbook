@@ -249,7 +249,7 @@ Retorna una lista de todas las transacciones asociadas al `clientId` o al `email
 
 Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providerData`). Acepta montos para cripto o moneda, no ambos.
 
-Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetros para asociar la transacción a un usuario específico.
+Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
 Si se le pasa `currencyId` y `currencySymbol`, este último será ignorado. Lo mismo para token.
 

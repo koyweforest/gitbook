@@ -18,7 +18,7 @@ Muy pocas personas tienen wallets propias o han interactuado directamente con co
 
 Con las APIs y Widgets de Koywe los proyectos cripto pueden ofrecer sus servicios a cualquier persona en Latinoamérica, sin que ellas tengan que estar en cripto desde antes. Tus usuarios fácilmente podrán interactuar con tus protocolos o contratos, sin que necesariamente se den cuenta que hay cripto por debajo.
 
-Tokeniza activos reales, vende NFTs de arte o conservación de la naturaleza, ofrece herramientas de compensación de emisiones de carbono, cuentas de inversión, o protocolos de [sueldo básico universal](https://es.wikipedia.org/wiki/Renta\_b%C3%A1sica\_universal), ¡en moneda local!
+Tokeniza activos reales, vende NFTs de arte o de conservación de la naturaleza, ofrece herramientas de compensación de emisiones de carbono, cuentas de inversión, o protocolos de [sueldo básico universal](https://es.wikipedia.org/wiki/Renta\_b%C3%A1sica\_universal), ¡en moneda local!
 
 Koywe se encarga de transformar esos pesos o soles en ETH o USDC para que tú sigas enfocado en construir tu proyecto web3.
 
