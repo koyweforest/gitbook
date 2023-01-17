@@ -202,6 +202,24 @@ Requiere: `transactionId`
 }
 ```
 
+{% hint style="info" %}
+Los posibles valores para `status` de `trackTransaction` son:
+
+* `WAITING`: Esperando el depósito.
+* `PENDING`: Recibido el depósito, esperando a mandar el crypto (o fiat para el caso de off ramps).
+* `IN_PROGRESS`: Enviada la transacción al blockchain o ejecutada la transferencia bancaria.
+* `DELIVERED`: Confirmada la transacción por el blockchain o transferencia.
+* `REJECTED`: Cancelada antes de enviar, o con problemas en el blockchain o banco.
+{% endhint %}
+
+{% hint style="info" %}
+Los diferentes valores para `status` del objeto `paymentOrderId` son:
+
+* `PENDING`: Sólo para los pagos con transferencia (manual o Khipu), mientras no se confirme el depósito.
+* `PAYED`: Pagado, estado final.
+* `REJECTED`: Cancelado o rechazado, estado final.
+{% endhint %}
+
 ### Lista de Transacciones
 
 Retorna una lista de todas las transacciones asociadas al `clientId` o al `email` especificado al autenticarse.
