@@ -335,7 +335,8 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "query":
 "query GetOrder($input: GetOrderInput!) {
   getOrder(input: $input){
-    uuid
+    UUID
+    quoteId
     symbolIn
     symbolOut
     amountIn
@@ -346,14 +347,17 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
     status
     outReceipt
     dates {
-      orderedDate
-      payedDate
-      transactionDate
-      deliveredDate
+      confirmationDate
+      paymentDate
+      executionDate
+      deliveryDate
     }
     destinationAddress
     networkFee
     paymentMethodId
+    metadata
+    logoIn
+    logoOut
   }
 }"
 "variables":
@@ -393,6 +397,8 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
     networkFee
     paymentMethodId
     metadata
+    logoIn
+    logoOut
   }
 }"
 ```
