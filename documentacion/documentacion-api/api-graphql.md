@@ -10,7 +10,7 @@ Envíanos un email a [hola@koywe.com](mailto:hola@koywe.com) para obtener tus cr
 **Pruebas:** La API de pruebas funciona en las testnets de las distintas blockchains. Tenemos un stock limitado de tokens, por lo que te pedimos criterio al probarlas.
 {% endhint %}
 
-## Queries y Mutaciones
+### Queries y Mutaciones
 
 Para hacer llamados a la API GraphQL, siempre debes enviar un request POST a la URL base, incluyendo la query y variables como objeto JSON. Un ejemplo en CURL de autenticación (header de Authorization incluido ilustrativamente):
 
@@ -24,7 +24,9 @@ curl --request POST \
 
 En los ejemplos siguientes sólo pondremos el objeto JSON del request.
 
-### Autenticación
+<details>
+
+<summary>Authentication</summary>
 
 Authentication: devuelve un Bearer Token que dura 24 horas.
 
@@ -33,7 +35,7 @@ Require: `clientId`, `secret`
 Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario específica y permite ver la información asociada a esta.
 
 ```json
-"query":
+"mutation":
 "mutation authenticate($input: AuthInput!) {
   authenticate(input: $input) {
     token
@@ -49,9 +51,68 @@ Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario e
 }
 ```
 
-### Pares
+</details>
 
-Obtener los pares de moneda y tokens soportados.
+Los dos siguientes servicios permiten la validación de un usario final de manera directa. El primer servicio enviará un código al correo deseado. Ese código debe ser ingresado en el segundo servicio para recibir la información de la sesión.
+
+<details>
+
+<summary>Validación de sesión</summary>
+
+Envía un código de 6 dígitos al email entregado en el input.
+
+```json
+"mutation":
+"mutation ValidateAccount($input: ValidateAccountInput!) {
+  validateAccount(input: $input) {
+    _id
+  }
+}",
+"variables" :
+{
+  "input": {
+    "email": "email@domain.com",
+    "clientId": "f87aad3as90fe5489bb5099f"
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary>Validación de código</summary>
+
+el valor de `code` en el input debe ser recogido del correo enviado por el servicio anterior.
+
+```
+"mutation":
+"mutation ValidateCode($input: ValidateCodeInput!) {
+  validateCode(input: $input) {
+    token
+    isIdentify
+    needVerificate
+    identity
+    firstOp
+  }
+}",
+"variables" :
+{
+  "input": {
+    "clientId": "40401a5615d9d8fd18f8a0b4",
+    "code": "940577",
+    "email": "example@domain.com"
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary>Pares</summary>
+
+Obtener los pares de moneda-tokens soportados.
 
 Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 
@@ -83,7 +144,40 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 }
 ```
 
-### Métodos de Pago
+Obtener los pares de token-monedas soportados.
+
+Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
+
+```json
+"query":
+"query GetTokenCurrencies($input: GetCurrenciesInput!) {
+  GetTokenCurrencies(input: $input) {
+    _id
+    name
+    symbol
+    decimals
+    currencies {
+      _id
+      name
+      symbol
+      decimals
+    }
+  }
+}",
+"variables":
+{
+  "input": {
+    "symbol": null,
+    "clientId": null
+  }
+}
+```
+
+</details>
+
+<details>
+
+<summary>Métodos de Pago</summary>
 
 Listado de los medios de pago disponibles y sus detalles (fee, datos de transferencia, etc) para una moneda específica.
 
@@ -112,156 +206,93 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 }
 ```
 
-### Simulación
+</details>
 
-Devuelve una simulación. Cuando el id del medio de pago es null, retorna las condiciones más favorables disponibles.
+<details>
+
+<summary>Quote</summary>
+
+### Consultar Quote
+
+Devuelve un "Quote". Cuando el id del medio de pago es null, retorna las condiciones más favorables disponibles.
 
 Requiere: `crypto` o `currency`. Montos en moneda local o token, uno o el otro. `cryptoSymbol`, `currencySymbol`
 
 Opcional: `paymentProviderId, clientId`
 
 <pre class="language-json"><code class="lang-json"><strong>"query":
-</strong><strong>"query getPaymentProviderFee($input: GetPaymentProviderInput!) {
-</strong>  getPaymentProviderFee(input: $input) {
-    gasCost
-    fee
-    cryptoToReceive
-    currencyToPay
-    Co2
-    price
+</strong><strong>"query GetQuote($quoteId: String!) {
+</strong>  getQuote(quoteId: $quoteId) {
+    quoteId
+    amountIn
+    amountOut
+    symbolIn
+    symbolOut
+    paymentMethodId
+    exchangeRate
+    koyweFee
+    netFee
+    co2
+    validFor
+    validUntil
   }
 }",
 "variables":
 {
-  "input": {
-    //"currency": 100000.00,
-    "crypto": 1000,
-    "cryptoSymbol":"USDC",
-    "currencySymbol":"CLP",
-    "paymentProviderId": null
-  }
+  "quoteId": "63c59396a38c6506a620162f"
 }
 </code></pre>
 
 En todas estas queries, el parámetro `clientId` será ignorado si el request tiene el token JWT de autenticación en los headers.
 
-## Queries Privadas
-
-Todas las queries a continuación requieren un Bearer Token en los headers:
-
-`Authorization: Bearer [token]`
-
-### Get Transaction
-
-Detalles de una transacción. `transactionId` es el UUID obtenido al crear una transacción o desde la lista de transacciones.
-
-Requiere: `transactionId`
+### Crear Quote
 
 ```json
-"query":
-"query TrackTransaction($input: TransactionTrackingInput!) {
-  trackTransaction(input: $input) {
-    _id
-    from
-    txHash
-    status
-    dates {
-      orderedDate
-      payedDate
-      transactionDate
-      deliveredDate
-    }
-    paymentOrderId {
-      _id
-      orderId
-      address
-      tokenId {
-        symbol
-        name
-        chainId
-      }
-      currencyAmount
-      amountCrypto
-      freezeAmount
-      koyweFee
-      netFee
-      status
-      currencyId {
-        name
-        symbol
-      }
-    }
-    retries
+"mutation":
+"mutation CreateOrder($input: OrderInput!) {
+  createOrder(input: $input) {
+    UUID
+    quoteId
+    symbolOut
+    symbolIn
+    amountOut
+    amountIn
+    paymentMethodId
+    providedAddress
+    providedAction
+    email
+    documentNumber
+    metadata
   }
 }",
 "variables":
 {
   "input": {
-    "transactionId": "a0eba85f-3428-4d1f-9055-043ddd5a3211"
+    "amountIn": 3716338,
+    "amountOut": 3.3,
+    "destinationAddress": "0x845193f6096554120bcfFfE59F0fb6F13d3C6d1D",
+    "callbackUrl": https://koywe.com/buy-crypto,
+    "documentNumber": null,
+    "email": example@domain.com,
+    "paymentMethodId": null,
+    "quoteId": "63c59396a38c6506a620162f",
+    "symbolIn": "CLP",
+    "symbolOut": "ETH"
   }
 }
 ```
 
-{% hint style="info" %}
-Los posibles valores para `status` de `trackTransaction` son:
+</details>
 
-* `WAITING`: Esperando el depósito.
-* `PENDING`: Recibido el depósito, esperando a mandar el crypto (o fiat para el caso de off ramps).
-* `IN_PROGRESS`: Enviada la transacción al blockchain o ejecutada la transferencia bancaria.
-* `DELIVERED`: Confirmada la transacción por el blockchain o transferencia.
-* `REJECTED`: Cancelada antes de enviar, o con problemas en el blockchain o banco.
-{% endhint %}
+### Queries Privadas
 
-{% hint style="info" %}
-Los diferentes valores para `status` del objeto `paymentOrderId` son:
+Todas las queries a continuación requieren un Bearer Token en los headers:
 
-* `PENDING`: Sólo para los pagos con transferencia (manual o Khipu), mientras no se confirme el depósito.
-* `PAYED`: Pagado, estado final.
-* `REJECTED`: Cancelado o rechazado, estado final.
-{% endhint %}
+`Authorization: Bearer [token]`
 
-### Lista de Transacciones
+<details>
 
-Retorna una lista de todas las transacciones asociadas al `clientId` o al `email` especificado al autenticarse.
-
-```json
-"query":
-"query getTransactions {
-  myTransactions {
-    _id
-    from
-    txHash
-    status
-    paymentOrderId {
-      address
-      tokenId {
-        symbol
-        chainId
-      }
-      currencyAmount
-      currencyAmountWOFee
-      amountCrypto
-      freezeAmount
-      koyweFee
-      netFee
-      status
-      paymentProviderId {
-        name
-      }
-      orderId
-      currencyId {
-        symbol
-      }
-    }
-    dates {
-      orderedDate
-      payedDate
-      transactionDate
-      deliveredDate
-    }
-  }
-}"
-```
+<summary>Order services</summary>
 
 ### Crear Orden
 
@@ -276,29 +307,202 @@ Requiere: `address, tokenId o tokenSymbol, currencyId o currencySymbol, currency
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria)
 
 ```json
-"query":
-"mutation CreatePaymentOrder($input: CreatePaymentOrderInput!) {
-  createPaymentOrder(input: $input) {
-    orderID
-    providerData //usually, a url to redirect the user to finalize payment
+"mutation":
+"mutation CreateOrder($input: OrderInput!) {
+  createOrder(input: $input) {
+    UUID
+    quoteId
+    symbolOut
+    symbolIn
+    amountOut
+    amountIn
+    paymentMethodId
+    providedAddress
+    providedAction
+    email
+    documentNumber
+    metadata
   }
 }"
 "variables":
 {
   "input": {
-    "address": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid
-    "tokenId": "630cab7fff27aaac82fd841b", // optional if tokenSymbol is sent (id will take priority if both are sent)
-    "currencyId": "6294cd18d2b5f912da43e678", // optional if currencySymbol is sent (id will take priority if both are sent)
-    "tokenSymbol": "CLP", // optional if tokenId is sent (id will take priority if both are sent)
-    "currencySymbol": "USDC", // optional if currencyId is sent (id will take priority if both are sent)
-    "currencyAmount": null,
-    "paymentProviderId": "632d7fe6237ded3a748112cf", // mandatory, from the list detailed above
-    "terms": true, // always true
-    "amountCrypto": 10,
-    "email": "email@domain.com", // optional if authentication includes one, mandatory if not
-    "documentNumber": "11.222.333-5 || CUAS525jGSD || 4235246346", // optional, to make wire transfers easier to approve
+    "amountIn": 1.100.000,
+    "amountOut": 1,
+    "callbackUrl": "https://koywe.com/buy-crypto", //usually, a url to redirect the user to finalize payment
+    "paymentMethodId": "632d7fe6237ded3a748112cf", // mandatory, from the list detailed above,
+    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid,
+    "quoteId": 63d2073e61117d05607afe72,
+    "symbolIn": CLP,
+    "symbolOut": ETH
   }
 }
 ```
 
-\
+### Consultar Orden
+
+```json
+"query":
+"query GetOrder($input: GetOrderInput!) {
+  getOrder(input: $input){
+    uuid
+    symbolIn
+    symbolOut
+    amountIn
+    amountOut
+    email
+    exchangeRate
+    koyweFee
+    status
+    outReceipt
+    dates {
+      orderedDate
+      payedDate
+      transactionDate
+      deliveredDate
+    }
+    destinationAddress
+    networkFee
+    paymentMethodId
+  }
+}"
+"variables":
+{
+  "input": {
+    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1"
+  }
+}
+```
+
+### Lista de órdenes pasadas
+
+Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` especificado al autenticarse.
+
+```json
+"query":
+"query Orders {
+  orders {
+    uuid
+    symbolIn
+    symbolOut
+    amountIn
+    amountOut
+    email
+    exchangeRate
+    koyweFee
+    status
+    outReceipt
+    dates {
+      orderedDate
+      payedDate
+      transactionDate
+      deliveredDate
+    }
+    destinationAddress
+    networkFee
+    paymentMethodId
+  }
+}"
+```
+
+</details>
+
+<details>
+
+<summary>Servicios Bancarios</summary>
+
+### Get Bank Account
+
+```json
+"query":
+"query GetBankAccount($filters: FiltersBankAccount!) {
+  getBankAccount(filters: $filters) {
+    _id
+    name
+    bankCode
+    countryCode
+    currencySymbol
+    accountNumber
+    account
+  }
+}"
+"variables":
+{
+  "filters": {
+    "countryCode": "CHL",
+    "currencySymbol": "CLP"
+  }
+}
+```
+
+### Get Bank Info by Country
+
+```json
+"query":
+"query GetBankInfoByCountry($countryCode: String!) {
+  getBankInfoByCountry(countryCode: $countryCode) {
+    bankCode
+    name
+    institutionName
+    transferCode
+  }
+}"
+"variables":
+{
+  "countryCode": "CHL"
+}
+```
+
+### Create Bank Account
+
+```json
+"mutation":
+"mutation CreateBankAccount($input: BankAccountInput!) {
+  getBankAccount(filters: $filters) {
+    _id
+    name
+    bankCode
+    countryCode
+    currencySymbol
+    accountNumber
+    account
+  }
+}"
+"variables":
+{
+  "input": {
+    "bankCode": "SANTANDER",
+    "accountNumber": "0123123123",
+    "countryCode": "CHL",
+    "currencySymbol": "CLP",
+    "documentNumber": null
+  }
+}
+```
+
+### Delete Bank Account
+
+```json
+"mutation":
+"mutation DeleteBankAccount($input: DeleteBankAccountInput!) {
+  deleteBankAccount(input: $input) {
+    _id
+    name
+    bankCode
+    countryCode
+    currencySymbol
+    accountNumber
+    account
+  }
+}"
+"variables":
+{
+  "input": {
+    "_id": "63bd75901ea16ea6e23109b5",
+    "countryCode": "CHL",
+    "currencySymbol": "CLP"
+  }
+}
+```
+
+</details>
