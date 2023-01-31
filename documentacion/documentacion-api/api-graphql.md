@@ -85,7 +85,7 @@ Envía un código de 6 dígitos al email entregado en el input.
 
 el valor de `code` en el input debe ser recogido del correo enviado por el servicio anterior.
 
-```
+```json
 "mutation":
 "mutation ValidateCode($input: ValidateCodeInput!) {
   validateCode(input: $input) {
@@ -120,18 +120,16 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 "query":
 "query GetCurrencyTokens($input: GetCurrenciesInput!) {
   GetCurrencyTokens(input: $input) {
-    _id
+    ID
     name
     symbol
     decimals
+    clientId
     tokens {
-      _id
+      ID
       name
       symbol
-      lastPrice
       decimals
-      internalMarket
-      chainId
     }
   }
 }",
@@ -152,12 +150,13 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 "query":
 "query GetTokenCurrencies($input: GetCurrenciesInput!) {
   GetTokenCurrencies(input: $input) {
-    _id
+    ID
     name
     symbol
     decimals
+    clientId
     currencies {
-      _id
+      ID
       name
       symbol
       decimals
@@ -189,19 +188,20 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 "query":
 "query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
   getPaymentProviderList(input: $input) {
-    _id
+    ID
     name
+    clientId
     description
-    fee
-    image
-    details
+    fee //Includes Koywe Fee
+    Logo // example value: https://rampa.koywe.com/paymentProviders/exampleImage.svg
+    details //Currently applies only to Wire payment method
   }
 }",
 "variables":
 {
   "input": {
     "symbol": "COP"
-    "clientId": "63631a561f41f8fd18f8c3e0"
+    "clientId": "f87aad3as90fe5489bb5099f"
   }
 }
 ```
@@ -223,23 +223,21 @@ Opcional: `paymentProviderId, clientId`
 <pre class="language-json"><code class="lang-json"><strong>"query":
 </strong><strong>"query GetQuote($quoteId: String!) {
 </strong>  getQuote(quoteId: $quoteId) {
-    quoteId
     amountIn
     amountOut
     symbolIn
     symbolOut
     paymentMethodId
-    exchangeRate
     koyweFee
     netFee
-    co2
+    netAmountIn // = amountIn - koyweFee - networkFee
     validFor
     validUntil
   }
 }",
 "variables":
 {
-  "quoteId": "63c59396a38c6506a620162f"
+  "UUID": "63c59396a38c6506a620162f"
 }
 </code></pre>
 
@@ -270,14 +268,15 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
   "input": {
     "amountIn": 3716338,
     "amountOut": 3.3,
-    "destinationAddress": "0x845193f6096554120bcfFfE59F0fb6F13d3C6d1D",
-    "callbackUrl": https://koywe.com/buy-crypto,
-    "documentNumber": null,
-    "email": example@domain.com,
-    "paymentMethodId": null,
-    "quoteId": "63c59396a38c6506a620162f",
     "symbolIn": "CLP",
-    "symbolOut": "ETH"
+    "symbolOut": "ETH",
+    "paymentMethodId": null,
+    "validFor": 30, //measured in seconds
+    "validUntil": "15:02:44Z",
+    "networkFee": 4000,
+    "koyweFee": 2338,
+    "netAmountIn": 3710000, // = amountIn - koyweFee - networkFee
+    "executable": false //set false by default. If value is set true, we store it and return a UUID.
   }
 }
 ```
@@ -296,13 +295,11 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 ### Crear Orden
 
-Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providerData`). Acepta montos para cripto o moneda, no ambos.
+Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providerData`).&#x20;
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
-Si se le pasa `currencyId` y `currencySymbol`, este último será ignorado. Lo mismo para token.
-
-Requiere: `address, tokenId o tokenSymbol, currencyId o currencySymbol, currencyAmount o amountCrypto, paymentProviderId, terms`
+Requiere: `destinationAddress`, `symbolIn, symbolOut, amountIn, amountOut paymentProviderId.`
 
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria)
 
@@ -311,30 +308,23 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "mutation CreateOrder($input: OrderInput!) {
   createOrder(input: $input) {
     UUID
-    quoteId
-    symbolOut
-    symbolIn
-    amountOut
-    amountIn
-    paymentMethodId
-    providedAddress
-    providedAction
-    email
-    documentNumber
-    metadata
   }
 }"
 "variables":
 {
   "input": {
+    "quoteId": null, //nullable. if provided and quote is still valid, 
+                    //symbolIn, symbolOut, amountIn, amountOut, 
+                    //and paymentMethodId are nullable
     "amountIn": 1.100.000,
     "amountOut": 1,
-    "callbackUrl": "https://koywe.com/buy-crypto", //usually, a url to redirect the user to finalize payment
+    "email": "example@domain.com", //for API calls
+    "documentNumber": null,
     "paymentMethodId": "632d7fe6237ded3a748112cf", // mandatory, from the list detailed above,
     "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid,
-    "quoteId": 63d2073e61117d05607afe72,
     "symbolIn": CLP,
-    "symbolOut": ETH
+    "symbolOut": ETH,
+    "metadata": null
   }
 }
 ```
@@ -369,7 +359,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "variables":
 {
   "input": {
-    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1"
+    "UUID": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1"
   }
 }
 ```
@@ -382,7 +372,8 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 "query":
 "query Orders {
   orders {
-    uuid
+    UUID
+    quoteId
     symbolIn
     symbolOut
     amountIn
@@ -393,14 +384,15 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
     status
     outReceipt
     dates {
-      orderedDate
-      payedDate
-      transactionDate
-      deliveredDate
+      confirmationDate
+      paymentDate
+      executionDate
+      deliveryDate
     }
     destinationAddress
     networkFee
     paymentMethodId
+    metadata
   }
 }"
 ```
@@ -460,7 +452,6 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 "mutation CreateBankAccount($input: BankAccountInput!) {
   getBankAccount(filters: $filters) {
     _id
-    name
     bankCode
     countryCode
     currencySymbol
@@ -474,8 +465,7 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
     "bankCode": "SANTANDER",
     "accountNumber": "0123123123",
     "countryCode": "CHL",
-    "currencySymbol": "CLP",
-    "documentNumber": null
+    "currencySymbol": "CLP"
   }
 }
 ```
@@ -487,7 +477,6 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 "mutation DeleteBankAccount($input: DeleteBankAccountInput!) {
   deleteBankAccount(input: $input) {
     _id
-    name
     bankCode
     countryCode
     currencySymbol

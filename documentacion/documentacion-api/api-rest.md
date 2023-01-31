@@ -1,5 +1,7 @@
 # 🚀 API REST
 
+En esta sección podrás ver los servicios REST que ofrece Koywe.
+
 {% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json" path="/currency-tokens" method="get" %}
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json](../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json)
 {% endswagger %}
