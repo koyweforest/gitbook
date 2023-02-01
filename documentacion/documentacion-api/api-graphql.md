@@ -28,7 +28,7 @@ En los ejemplos siguientes sólo pondremos el objeto JSON del request.
 
 <summary>Authentication</summary>
 
-Authentication: devuelve un Bearer Token que dura 24 horas.
+devuelve un Bearer Token que dura 24 horas.
 
 Require: `clientId`, `secret`
 
@@ -53,7 +53,7 @@ Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario e
 
 </details>
 
-Los dos siguientes servicios permiten la validación de un usario final de manera directa. El primer servicio enviará un código al correo deseado. Ese código debe ser ingresado en el segundo servicio para recibir la información de la sesión.
+Los dos siguientes servicios permiten la validación de un usuario final de manera directa. El primer servicio enviará un código al correo deseado. Ese código debe ser ingresado en el segundo servicio para recibir la información de la sesión.
 
 <details>
 
@@ -210,7 +210,7 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 
 <details>
 
-<summary>Quote</summary>
+<summary>Servicios Quote</summary>
 
 ### Consultar Quote
 
@@ -291,7 +291,7 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 <details>
 
-<summary>Order services</summary>
+<summary>Servicios de órdenes</summary>
 
 ### Crear Orden
 
