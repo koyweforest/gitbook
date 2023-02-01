@@ -691,7 +691,7 @@
           "Quote Queries"
         ],
         "summary": "Returns quote details",
-        "description": "Receives a quoteId value. One can be produced uing the previous quote service (post /quotes)",
+        "description": ".",
         "operationId": "GetQuote",
         "parameters": [
           {
