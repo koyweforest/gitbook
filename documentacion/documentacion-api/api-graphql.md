@@ -214,11 +214,7 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 
 ### Consultar Quote
 
-Devuelve un "Quote". Cuando el id del medio de pago es null, retorna las condiciones más favorables disponibles.
-
-Requiere: `crypto` o `currency`. Montos en moneda local o token, uno o el otro. `cryptoSymbol`, `currencySymbol`
-
-Opcional: `paymentProviderId, clientId`
+Devuelve un "Quote". Recive un quoteId
 
 <pre class="language-json"><code class="lang-json"><strong>"query":
 </strong><strong>"query GetQuote($quoteId: String!) {
