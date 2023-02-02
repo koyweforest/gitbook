@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api-test.koywe.com/rest"
+      "url": "https://2zu02t2ia4.execute-api.us-east-1.amazonaws.com/"
     }
   ],
   "tags": [
@@ -36,6 +36,19 @@
         "summary": "Returns all supported Currency-Token pairs.",
         "description": "For the moment Koywe supports operations with the following local currencies [CLP, MXN, COP, PEN]",
         "operationId": "tokenCurrecyPairs",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -45,6 +58,28 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Currency"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
                   }
                 }
               }
@@ -72,6 +107,17 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -80,10 +126,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Currency"
-                  }
+                  "$ref": "#/components/schemas/Currency"
                 }
               }
             }
@@ -94,6 +137,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "Symbol invalid": {
+                    "value": {
+                      "message": "\"symbol\" must be one of [CLP, COP, MXN, PEN]"
+                    }
+                  }
                 }
               }
             }
@@ -108,7 +168,20 @@
         ],
         "summary": "Returns all supported Coin-Token pairs.",
         "description": "For the moment Koywe supports operations with the following tokens [ETH, MATIC, BNB, BTC, USDC, DAI]",
-        "operationId": "currecyTokenPair",
+        "operationId": "currencyTokenPair",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -118,6 +191,28 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
                   }
                 }
               }
@@ -174,12 +269,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "clientId invalid": {
                     "value": {
                       "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
                     }
                   },
                   "tokenSymbol invalid": {
@@ -245,12 +345,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "clientId invalid": {
                     "value": {
                       "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
                     }
                   },
                   "Symbol invalid": {
@@ -299,7 +404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "ClientId invalid lenght": {
@@ -325,6 +430,11 @@
                   "Secret required": {
                     "value": {
                       "message": "\"secret\" is required"
+                    }
+                  },
+                  "Authentication invalid": {
+                    "value": {
+                      "message": "Invalid authentication"
                     }
                   }
                 }
@@ -378,7 +488,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "Email required": {
@@ -432,7 +542,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "Code Syntax": {
@@ -479,7 +589,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "Email not found": {
@@ -536,7 +646,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "orderId invalid": {
@@ -579,6 +689,30 @@
         "summary": "Returns a lists of orders.",
         "description": "To try these services, an Authorization token must be provided as a BearerToken header (try clicking the lock on the right!). The Autherization token can be obtained in the /auth service.",
         "operationId": "order",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "This value has a limit of 50, represents the number of responses per page.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Number of pages shown.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -588,6 +722,28 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "pageSize invalid": {
+                    "value": {
+                      "message": "PageSize must be between 1 and 50"
+                    }
+                  },
+                  "pageNumber invalid": {
+                    "value": {
+                      "message": "PageNumber must be at least 1"
+                    }
                   }
                 }
               }
@@ -645,7 +801,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_1"
+                  "$ref": "#/components/schemas/inline_response_400"
                 },
                 "examples": {
                   "paymentMethodId required": {
@@ -691,7 +847,7 @@
           "Quote Queries"
         ],
         "summary": "Returns quote details",
-        "description": ".",
+        "description": "Receives a quoteId value. One can be produced uing the previous quote service (post /quotes)",
         "operationId": "GetQuote",
         "parameters": [
           {
@@ -722,7 +878,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/inline_response_400_2"
+                  "$ref": "#/components/schemas/inline_response_400_1"
                 }
               }
             }
@@ -736,7 +892,7 @@
       "Currency": {
         "type": "object",
         "properties": {
-          "ID": {
+          "_id": {
             "type": "string",
             "example": "6294cd18d2b5f912da43e678"
           },
@@ -753,10 +909,10 @@
             "format": "int32",
             "example": 0
           },
-          "currencies": {
+          "tokens": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Currency_currencies"
+              "$ref": "#/components/schemas/Currency_tokens"
             }
           }
         }
@@ -764,7 +920,7 @@
       "Token": {
         "type": "object",
         "properties": {
-          "ID": {
+          "_id": {
             "type": "string",
             "example": "6303d71295ee10bace884ac4"
           },
@@ -781,10 +937,10 @@
             "format": "int32",
             "example": 18
           },
-          "tokens": {
+          "currencies": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Token_tokens"
+              "$ref": "#/components/schemas/Token_currencies"
             }
           }
         }
@@ -792,7 +948,7 @@
       "Payments": {
         "type": "object",
         "properties": {
-          "ID": {
+          "_id": {
             "type": "string",
             "example": "632d7fe6237ded3a748112cf"
           },
@@ -804,15 +960,11 @@
             "type": "string",
             "example": "La comisión de transferencia bancaria equivale a un 1% del total de tu compra"
           },
-          "clientId": {
-            "type": "string",
-            "example": "f87aad3as90fe5489bb5099f"
-          },
           "fee": {
             "type": "integer",
             "example": 0
           },
-          "logo": {
+          "image": {
             "type": "string",
             "example": "https://rampa.koywe.com/paymentProviders/wire-cl.png"
           },
@@ -843,9 +995,9 @@
       "Order": {
         "type": "object",
         "properties": {
-          "UUID": {
+          "orderId": {
             "type": "string",
-            "example": "63c6ceb6a9e78abfc1200354"
+            "example": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50"
           },
           "quoteId": {
             "type": "string"
@@ -856,7 +1008,7 @@
           },
           "networkFee": {
             "type": "number",
-            "example": 0
+            "example": 1000
           },
           "symbolIn": {
             "type": "string",
@@ -971,15 +1123,6 @@
         "type": "object",
         "properties": {
           "message": {
-            "type": "string",
-            "example": "\"symbol\" must be one of [CLP, COP, MXN, PEN]"
-          }
-        }
-      },
-      "inline_response_400_1": {
-        "type": "object",
-        "properties": {
-          "message": {
             "type": "string"
           }
         }
@@ -1079,7 +1222,7 @@
           }
         }
       },
-      "inline_response_400_2": {
+      "inline_response_400_1": {
         "type": "object",
         "properties": {
           "message": {
@@ -1088,10 +1231,10 @@
           }
         }
       },
-      "Currency_currencies": {
+      "Currency_tokens": {
         "type": "object",
         "properties": {
-          "ID": {
+          "_id": {
             "type": "string",
             "example": "6283b7f8c7ab3a52fd8a51fc"
           },
@@ -1110,10 +1253,10 @@
           }
         }
       },
-      "Token_tokens": {
+      "Token_currencies": {
         "type": "object",
         "properties": {
-          "ID": {
+          "_id": {
             "type": "string",
             "example": "6294cd18d2b5f912da43e678"
           },
