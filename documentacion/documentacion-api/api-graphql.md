@@ -233,7 +233,7 @@ Devuelve un "Quote". Recive un quoteId
 }",
 "variables":
 {
-  "UUID": "63c59396a38c6506a620162f"
+  "quoteId": "63c59396a38c6506a620162f"
 }
 </code></pre>
 
@@ -245,7 +245,7 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
 "mutation":
 "mutation CreateOrder($input: OrderInput!) {
   createOrder(input: $input) {
-    UUID
+    orderId
     quoteId
     symbolOut
     symbolIn
@@ -295,7 +295,7 @@ Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
-Requiere: `destinationAddress`, `symbolIn, symbolOut, amountIn, amountOut paymentProviderId.`
+Requiere: `destinationAddress`, `symbolIn, symbolOut, amountIn, amountOut, paymentMethodId.`
 
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria)
 
@@ -303,7 +303,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "mutation":
 "mutation CreateOrder($input: OrderInput!) {
   createOrder(input: $input) {
-    UUID
+    orderId
   }
 }"
 "variables":
@@ -331,7 +331,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "query":
 "query GetOrder($input: GetOrderInput!) {
   getOrder(input: $input){
-    UUID
+    orderId
     quoteId
     symbolIn
     symbolOut
@@ -372,7 +372,7 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 "query":
 "query Orders {
   orders {
-    UUID
+    orderId
     quoteId
     symbolIn
     symbolOut
@@ -448,6 +448,8 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 ```
 
 ### Create Bank Account
+
+optional: `bankCode, documentNumber`
 
 ```json
 "mutation":
