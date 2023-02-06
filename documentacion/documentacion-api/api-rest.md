@@ -34,11 +34,15 @@ En esta sección podrás ver los servicios REST que ofrece Koywe.
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
 {% endswagger %}
 
-{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/orders/{orderId}" method="get" %}
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/orders" method="get" %}
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
 {% endswagger %}
 
-{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/orders" method="get" %}
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/orders" method="post" %}
+[kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
+{% endswagger %}
+
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/orders/{orderId}" method="get" %}
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
 {% endswagger %}
 
@@ -47,5 +51,21 @@ En esta sección podrás ver los servicios REST que ofrece Koywe.
 {% endswagger %}
 
 {% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/quotes/{quoteId}" method="get" %}
+[kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
+{% endswagger %}
+
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/bank-accounts" method="get" %}
+[kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
+{% endswagger %}
+
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/bank-accounts" method="post" %}
+[kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
+{% endswagger %}
+
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/bank-accounts" method="delete" %}
+[kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
+{% endswagger %}
+
+{% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json" path="/bank-info/{countryCode}" method="get" %}
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json](<../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved (1).json>)
 {% endswagger %}

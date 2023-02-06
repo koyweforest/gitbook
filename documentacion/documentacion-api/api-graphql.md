@@ -214,7 +214,7 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 
 ### Consultar Quote
 
-Devuelve un "Quote". Recive un quoteId
+Devuelve un "Quote". Recive un quoteId.
 
 <pre class="language-json"><code class="lang-json"><strong>"query":
 </strong><strong>"query GetQuote($quoteId: String!) {
@@ -295,7 +295,15 @@ Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
-Requiere: `destinationAddress`, `symbolIn, symbolOut, amountIn, amountOut, paymentMethodId.`
+Necesitas introducir `amountIn` o `amountOut`, no ambos.
+
+## On ramp
+
+Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut, y paymentMethodId`.
+
+## Off ramp
+
+Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut.`
 
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria)
 

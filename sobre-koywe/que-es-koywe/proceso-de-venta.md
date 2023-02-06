@@ -19,8 +19,7 @@ En todo momento del flujo podrás ver exactamente cuánto estás pagando y cuán
 {% endhint %}
 
 4. Selecciona la cuenta bancaria a la que quieres que enviemos el monto.
-5. Ingresa tu dirección de billetera crypto.
-6. valida tu correo e identidad.
-7. Selecciona medio de pago y procede con el pago.
-8. Listo! Puedes revisar el estado de tu transacción si lo deseas.
+5. valida tu correo e identidad.
+6. Procede con el pago. Envía tus  cryptos al address que te enviamos.
+7. Listo! Puedes revisar el estado de tu transacción si lo deseas.
 
