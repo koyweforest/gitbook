@@ -10,16 +10,55 @@ description: La forma más fácil de vender cripto monedas en Latinoamérica
 
 ¡Ahora podrás usar Koywe para vender tus cryptos de la forma más fácil! Los pasos para usar el Widget son muy simples:
 
-1. Selecciona la opción de venta.
-2. Ingresa la moneda que quieres vender y la que quieres recibir.
-3. Ingresa el monto que quieres vender, o el monto que quieres recibir.
+## 1. Ingresa la moneda que quieres vender, y la moneda que quieres recibir.
+
+<div>
+
+<figure><img src="../../.gitbook/assets/venta1.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../../.gitbook/assets/venta2.png" alt=""><figcaption></figcaption></figure>
+
+</div>
+
+## 2. Ingresa el monto que quieres vender, o el que quieres recibir.
+
+<figure><img src="../../.gitbook/assets/monto (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 En todo momento del flujo podrás ver exactamente cuánto estás pagando y cuánto recibirás, así como el detalle de las comisiones al hacer click en _**Ver Detalle**_.
 {% endhint %}
 
-4. Selecciona la cuenta bancaria a la que quieres que enviemos el monto.
-5. valida tu correo e identidad.
-6. Procede con el pago. Envía tus  cryptos al address que te enviamos.
-7. Listo! Puedes revisar el estado de tu transacción si lo deseas.
+<figure><img src="../../.gitbook/assets/detalle.png" alt=""><figcaption></figcaption></figure>
+
+## 3. Valida tu identidad.
+
+Puedes ver los pasos en la sección "Validación de usuario".
+
+## 4. Selecciona la cuenta bancaria a la que quieres que enviemos el monto.
+
+<figure><img src="../../.gitbook/assets/cuenta bancaria.png" alt=""><figcaption></figcaption></figure>
+
+Puedes seleccionar una existente o añadir una nueva.
+
+<figure><img src="../../.gitbook/assets/nueva.png" alt=""><figcaption></figcaption></figure>
+
+## 5. Procede con el pago.
+
+Asegurate de revisar los detalles de comisión y no olvides aceptar los términos y condiciones de Koywe.
+
+<figure><img src="../../.gitbook/assets/terminos.png" alt=""><figcaption></figcaption></figure>
+
+Envía tus cryptos al address que te enviamos. Puedes copiar la dirección o escanear el código qr.
+
+<figure><img src="../../.gitbook/assets/qr.png" alt=""><figcaption></figcaption></figure>
+
+## 6. Revisa el estado de tu transacción.
+
+Para revisar el estado de tu transacción, puedes hacerlo con el botón que va a aperecer abajo del código qr.
+
+<figure><img src="../../.gitbook/assets/estado.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/tracking1 (1).png" alt=""><figcaption></figcaption></figure>
 

@@ -5,6 +5,7 @@
 ## Sobre Koywe
 
 * [🌳 ¿Qué es Koywe?](sobre-koywe/que-es-koywe/README.md)
+  * [👤 Validación de usuario](sobre-koywe/que-es-koywe/validacion-de-usuario.md)
   * [📥 Proceso de Compra](sobre-koywe/que-es-koywe/proceso-de-compra.md)
   * [📤 Proceso de Venta](sobre-koywe/que-es-koywe/proceso-de-venta.md)
 * [✨ Casos de Uso](sobre-koywe/casos-de-uso.md)

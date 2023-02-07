@@ -618,7 +618,7 @@
           "Orders"
         ],
         "summary": "Returns a lists of orders.",
-        "description": "To try these services, an Authorization token must be provided as a BearerToken header (try clicking the lock on the right!). The Autherization token can be obtained in the /auth service.",
+        "description": "To try these services, an Authorization token must be provided as a BearerToken header. The Autherization token can be obtained in the /auth service.",
         "operationId": "order",
         "parameters": [
           {
@@ -702,7 +702,7 @@
           "Orders"
         ],
         "summary": "Creates a new order.",
-        "description": "Creates a purchase or sell order, returns a UUID for tracking and, depending on the payment method, an URL to do so. For authenticated calls that do not have an email asociated, one must be included as a parameter to link the transaction to a specific user. If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, amountOut, and paymentMethodId are nullable.",
+        "description": "Creates a purchase or sell order, returns a UUID for tracking and, depending on the payment method, an URL to do so. For authenticated calls that do not have an email asociated, one must be included as a parameter to link the transaction to a specific user. If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, amountOut, and paymentMethodId are nullable. In the case of amountIn and amountOut, only one must be as an input parameter.",
         "operationId": "Createorder",
         "requestBody": {
           "content": {
@@ -721,6 +721,35 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateOrder"
+                },
+                "examples": {
+                  "Purchase": {
+                    "value": {
+                      "orderId": "3ae57c43-6fae-4b0c-b0d5-2c35759e76d9",
+                      "quoteId": "63e154dbc47d9176668a9af6",
+                      "amountIn": 1313696,
+                      "amountOut": 1,
+                      "symbolIn": "CLP",
+                      "symbolOut": "ETH",
+                      "paymentMethodId": "63473a5f743da0f55fa04c8f",
+                      "providedAction": "url.example.com",
+                      "email": "kenneth@koywe.com",
+                      "documentNumber": "158289164"
+                    }
+                  },
+                  "Sell": {
+                    "value": {
+                      "orderId": "3ae57c43-6fae-4b0c-b0d5-2c35759e76d9",
+                      "quoteId": "63e154dbc47d9176668a9af6",
+                      "amountIn": 1,
+                      "amountOut": 1313696,
+                      "symbolIn": "ETH",
+                      "symbolOut": "CLP",
+                      "providedAction": "url.example.com",
+                      "email": "kenneth@koywe.com",
+                      "documentNumber": "158289164"
+                    }
+                  }
                 }
               }
             }
@@ -736,6 +765,21 @@
                   "Address empty": {
                     "value": {
                       "message": "\"destinationAddress\" is not allowed to be empty"
+                    }
+                  },
+                  "Account not found": {
+                    "value": {
+                      "message": "Account not found for email: **@**.***"
+                    }
+                  },
+                  "Email required": {
+                    "value": {
+                      "message": "email field is required"
+                    }
+                  },
+                  "Email difference": {
+                    "value": {
+                      "message": "account email can not be different to token account:"
                     }
                   },
                   "QuoteId syntax": {
@@ -772,6 +816,26 @@
                     "value": {
                       "message": "Must contain only one of [amountIn, amountOut]"
                     }
+                  },
+                  "QuoteId parameters exclusion": {
+                    "value": {
+                      "message": "quoteId must be used without symbolOut, symbolIn, amountOut or amountIn"
+                    }
+                  },
+                  "PaymentMethodId invalid": {
+                    "value": {
+                      "message": "Payment method is restricted"
+                    }
+                  },
+                  "Currency amount less than permited": {
+                    "value": {
+                      "message": "Currency amount is less than the minimun available"
+                    }
+                  },
+                  "Currency amount more than permited": {
+                    "value": {
+                      "message": "Currency amount exceeds the maximun available"
+                    }
                   }
                 }
               }
@@ -801,7 +865,7 @@
           "Orders"
         ],
         "summary": "Returns order information.",
-        "description": "To try these services, an Authorization token must be provided as a BearerToken header (try clicking the lock on the right!). The Autherization token can be obtained in the /auth service.",
+        "description": "To try these services, an Authorization token must be provided as a BearerToken header. The Autherization token can be obtained in the /auth service.",
         "operationId": "Getorder",
         "parameters": [
           {
@@ -873,7 +937,7 @@
           "Quote Queries"
         ],
         "summary": "Creates a purchase or sell quote",
-        "description": "only one of the input parameters \"amountIn\" and \"amountOut\" must be provided. for on ramps receives adicionally clientId and paymentMethodId.",
+        "description": "Only one of the input parameters \"amountIn\" and \"amountOut\" must be provided. for on ramps receives adicionally clientId and paymentMethodId. Returns a quoteId that can be use to create an order (is not necessary, but if provided and still valid, fewer values will be necessary to create the order).",
         "operationId": "CreateQuote",
         "requestBody": {
           "content": {
@@ -957,7 +1021,7 @@
           "Quote Queries"
         ],
         "summary": "Returns quote details",
-        "description": "Receives a quoteId value. One can be produced uing the previous quote service (post /quotes)",
+        "description": "Receives a quoteId value. One can be produced uing the previous quote service (post /quotes). Returns quote data.",
         "operationId": "GetQuote",
         "parameters": [
           {
@@ -1121,6 +1185,16 @@
                       "message": "\"currencySymbol\" must be one of [CLP, COP, MXN, PEN]"
                     }
                   },
+                  "Email required": {
+                    "value": {
+                      "message": "email field is required"
+                    }
+                  },
+                  "Email invalid": {
+                    "value": {
+                      "message": "\"email\" is not allowed"
+                    }
+                  },
                   "parameter required": {
                     "value": {
                       "message": "\"currencySymbol\" is required"
@@ -1144,6 +1218,21 @@
                   "Bank Account already exists": {
                     "value": {
                       "message": "this bank account is already registered"
+                    }
+                  },
+                  "DocumentNumber syntax": {
+                    "value": {
+                      "message": "\"accountNumber\" must be a string"
+                    }
+                  },
+                  "DocumentNumber empty": {
+                    "value": {
+                      "message": "\"documentNumber\" is not allowed to be empty"
+                    }
+                  },
+                  "DocumentNumber invalid": {
+                    "value": {
+                      "message": "documentNumber is not valid for \"countryCode\""
                     }
                   }
                 }
@@ -1406,8 +1495,34 @@
         "type": "object",
         "properties": {
           "orderId": {
-            "type": "string",
-            "example": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50"
+            "type": "string"
+          },
+          "quoteId": {
+            "type": "string"
+          },
+          "amountIn": {
+            "type": "number"
+          },
+          "amountOut": {
+            "type": "number"
+          },
+          "symbolIn": {
+            "type": "string"
+          },
+          "symbolOut": {
+            "type": "string"
+          },
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "providedAction": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "documentNumber": {
+            "type": "string"
           }
         }
       },
@@ -1697,7 +1812,7 @@
           },
           "paymentMethodId": {
             "type": "string",
-            "example": "632d7fe6237ded3a748112cf"
+            "example": "62a0c6a4c7ab3a52fd683080"
           },
           "destinationAddress": {
             "type": "string",
@@ -1808,6 +1923,12 @@
           "currencySymbol": {
             "type": "string",
             "example": "CLP"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
           }
         }
       },
