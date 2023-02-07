@@ -15,6 +15,7 @@
 * [👩💻 Credenciales](documentacion/credenciales.md)
 * [🖥 Documentación SDK](documentacion/documentacion-sdk.md)
 * [🛠 Documentación API](documentacion/documentacion-api/README.md)
+  * [🛰 Flujo Básico API](documentacion/documentacion-api/flujo-basico-api.md)
   * [🛸 API GraphQL](documentacion/documentacion-api/api-graphql.md)
   * [🚀 API REST](documentacion/documentacion-api/api-rest.md)
 * [🪝 Webhooks y Callbacks](documentacion/webhooks.md)
