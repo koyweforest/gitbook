@@ -38,7 +38,15 @@ Puedes ver los pasos en la sección "[Validación de usuario](validacion-de-usua
 
 ## 4. Selecciona la cuenta bancaria a la que quieres que enviemos el monto.
 
+<div>
+
 <figure><img src="../../.gitbook/assets/cuenta bancaria.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../../.gitbook/assets/eleccion.png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 Puedes seleccionar una existente o añadir una nueva.
 
