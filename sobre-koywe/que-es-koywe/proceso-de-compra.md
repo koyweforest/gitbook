@@ -54,7 +54,7 @@ Puedes ingresar un nombre de dominio ENS, en redes compatibles con ethereum, o c
 
 ## 4. Valida tu identidad.
 
-Puedes ver los pasos en la sección "Validación de usuario".
+Puedes ver los pasos en la sección "[Validación de usuario](validacion-de-usuario.md)".
 
 ## 5. Confirmación de Compra y Medio de Pago
 

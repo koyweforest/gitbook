@@ -1,6 +1,6 @@
 # 👤 Validación de usuario
 
-El proceso de KYC es fundamental para que los usuarios usen nuestros servicios de la manera más correcta. Es necesaria la validación del usuario para hacer uso de los procesos de compra y venta. Una vez hecha la validación podrás comprar y vender por las próximas 24 horas (12 horas para uso de Koywe mediante la API) antes de que tengas que hacer una validación nuevamente.&#x20;
+Para cumplir con las regulaciones locales, los usuarios de Koywe deberán validar su identidad. ¡Es muy fácil!
 
 ## 1. Valida tu correo electrónico
 

@@ -34,7 +34,7 @@ En todo momento del flujo podrás ver exactamente cuánto estás pagando y cuán
 
 ## 3. Valida tu identidad.
 
-Puedes ver los pasos en la sección "Validación de usuario".
+Puedes ver los pasos en la sección "[Validación de usuario](validacion-de-usuario.md)".
 
 ## 4. Selecciona la cuenta bancaria a la que quieres que enviemos el monto.
 
