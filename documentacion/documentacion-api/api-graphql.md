@@ -125,11 +125,17 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
     symbol
     decimals
     clientId
+    logo
+    limits {
+      min
+      max
+    }
     tokens {
       ID
       name
       symbol
       decimals
+      logo
     }
   }
 }",
@@ -155,11 +161,17 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
     symbol
     decimals
     clientId
+    logo
     currencies {
       ID
       name
       symbol
       decimals
+      logo
+      limits {
+        min
+        max
+      }
     }
   }
 }",
