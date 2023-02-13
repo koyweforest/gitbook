@@ -1,6 +1,12 @@
 # 🚀 API REST
 
-En esta sección podrás ver los servicios REST que ofrece Koywe.
+En esta sección podrás ver los servicios REST que ofrece Koywe. También puedes ingresar al link que dejamos abajo para que puedas probar la API en Swaggerhub directamente desde tu navegador.
+
+URL de pruebas: [https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.0](https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.0)
+
+Adicionalmente te dejamos el link para que descargues nuestra API y lo puedas probar donde quieras!
+
+{% file src="../../.gitbook/assets/KoyweApi.json" %}
 
 {% swagger src="../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json" path="/currency-tokens" method="get" %}
 [kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json](../../.gitbook/assets/kpeet7-documentacion-api_rest_de_koywe-2.0.0-resolved.json)

@@ -1,0 +1,2043 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Koywe's API REST documentation",
+    "description": "The present documentation provides the information you need to familiarize with the services available in Koywe's API REST!",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api-test.koywe.com/rest"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Currency"
+    },
+    {
+      "name": "Token"
+    },
+    {
+      "name": "Payment-provider"
+    },
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Orders"
+    },
+    {
+      "name": "Bank Queries"
+    }
+  ],
+  "paths": {
+    "/currency-tokens": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "summary": "Returns all supported Currency-Token pairs.",
+        "description": "For the moment Koywe supports operations with the following local currencies [CLP, MXN, COP, PEN]",
+        "operationId": "tokenCurrecyPairs",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Currency"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/currency-tokens/{currencySymbol}": {
+      "get": {
+        "tags": [
+          "Currency"
+        ],
+        "summary": "Returns supported Currency-Token pairs for a given currency.",
+        "description": "Receives a currency symbol to filter. [CLP, COP, MXN, PEN]",
+        "operationId": "tokenCurrecyPair",
+        "parameters": [
+          {
+            "name": "currencySymbol",
+            "in": "path",
+            "description": "Symbol assosiated with the currency of choice.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Currency"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "Symbol invalid": {
+                    "value": {
+                      "message": "\"symbol\" must be one of [CLP, COP, MXN, PEN]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token-currencies": {
+      "get": {
+        "tags": [
+          "Token"
+        ],
+        "summary": "Returns all supported Coin-Token pairs.",
+        "description": "For the moment Koywe supports operations with the following tokens [ETH, MATIC, BNB, BTC, USDC, DAI]",
+        "operationId": "currencyTokenPair",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token-currencies/{tokenSymbol}": {
+      "get": {
+        "tags": [
+          "Token"
+        ],
+        "summary": "Returns supported Coin-Token pairs.",
+        "description": "Receives a token symbol to filter. For the moment Koywe supports operations with the following tokens [ETH, MATIC, BNB, BTC, USDC, DAI]",
+        "operationId": "currecyTokenPairs",
+        "parameters": [
+          {
+            "name": "tokenSymbol",
+            "in": "path",
+            "description": "Symbol assosiated with the token of choice.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "tokenSymbol invalid": {
+                    "value": {
+                      "message": "\"symbol\" must be one of [eth, matic, bnb, btc, usdc, dai]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment-providers": {
+      "get": {
+        "tags": [
+          "Payment-provider"
+        ],
+        "summary": "Returns a list of available means of payment for a given currency.",
+        "description": "If you want to know how to receive your own clientId, please check the \"Credentials\" section. the domain for all images provided directly by Koywe have the form https://rampa.koywe.com/paymentProviders/exampleImage.svg (keep in mind that this is just an example, but the domain shown is the actual one Koywe uses)",
+        "operationId": "PaymentOptionsList",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "description": "Currency Symbol assosiated with the currency of choice.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "your company's unique Koywe identifier.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payments"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "clientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  },
+                  "clientId Lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "Symbol invalid": {
+                    "value": {
+                      "message": "\"symbol\" must be one of [CLP, COP, MXN, PEN]"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Returns an Authorization Token.",
+        "description": "If you want to know how to receive your own clientId and secret, please check the \"Credentials\" section. \"email\" is optional.",
+        "operationId": "auth",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "ClientId invalid lenght": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "ClientId required": {
+                    "value": {
+                      "message": "\"clientId\" is required"
+                    }
+                  },
+                  "ClientId invalid": {
+                    "value": {
+                      "message": "\"clientId\" is not a valid objectId"
+                    }
+                  },
+                  "Email invalid": {
+                    "value": {
+                      "message": "\"email\" must be a valid email"
+                    }
+                  },
+                  "Secret required": {
+                    "value": {
+                      "message": "\"secret\" is required"
+                    }
+                  },
+                  "Authentication invalid": {
+                    "value": {
+                      "message": "Invalid authentication"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Object not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/validate": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Returns an id and send a validation email.",
+        "description": "The email that is sent contains a 6-digit code that allows you to validate your session.",
+        "operationId": "validate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_validate_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationId"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "Email required": {
+                    "value": {
+                      "message": "\"email\" is required"
+                    }
+                  },
+                  "Email syntax": {
+                    "value": {
+                      "message": "\"email\" must be a valid email"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/code": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Returns session data.",
+        "description": "The value \"code\" shall be retrieved from the email sent by the previous method call (auth/validate).",
+        "operationId": "code",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_code_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "Code Syntax": {
+                    "value": {
+                      "message": "\"code\" must only contain digits."
+                    }
+                  },
+                  "Code Lenght": {
+                    "value": {
+                      "message": "\"code\" length must be 6 characters long"
+                    }
+                  },
+                  "Code Invalid": {
+                    "value": {
+                      "message": "Invalid code"
+                    }
+                  },
+                  "Code required": {
+                    "value": {
+                      "message": "\"code\" is required"
+                    }
+                  },
+                  "Email Syntax": {
+                    "value": {
+                      "message": "\"email\" must be a valid email"
+                    }
+                  },
+                  "ClientId Syntax": {
+                    "value": {
+                      "message": "\"clientId\" length must be 24 characters long"
+                    }
+                  },
+                  "ClientId value Syntax": {
+                    "value": {
+                      "message": "\"clientId\" must only contain alphanumeric characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Object not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "Email not found": {
+                    "value": {
+                      "message": "Account not found."
+                    }
+                  },
+                  "ClientId not found": {
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns a lists of orders.",
+        "description": "To try these services, an Authorization token must be provided as a BearerToken header. The Autherization token can be obtained in the /auth service.",
+        "operationId": "order",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "This value has a limit of 50, represents the number of responses per page.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "Number of pages shown.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "pageSize invalid": {
+                    "value": {
+                      "message": "PageSize must be between 1 and 50"
+                    }
+                  },
+                  "pageNumber invalid": {
+                    "value": {
+                      "message": "PageNumber must be at least 1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Object not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Creates a new order.",
+        "description": "Creates a purchase or sell order, returns a UUID for tracking and, depending on the payment method, an URL to do so. For authenticated calls that do not have an email asociated, one must be included as a parameter to link the transaction to a specific user. If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, amountOut, and paymentMethodId are nullable. In the case of amountIn and amountOut, only one must be as an input parameter.",
+        "operationId": "Createorder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOrder"
+                },
+                "examples": {
+                  "Purchase": {
+                    "value": {
+                      "orderId": "3ae57c43-6fae-4b0c-b0d5-2c35759e76d9",
+                      "quoteId": "63e154dbc47d9176668a9af6",
+                      "amountIn": 1313696,
+                      "amountOut": 1,
+                      "symbolIn": "CLP",
+                      "symbolOut": "ETH",
+                      "paymentMethodId": "63473a5f743da0f55fa04c8f",
+                      "providedAction": "url.example.com",
+                      "email": "kenneth@koywe.com",
+                      "documentNumber": "158289164"
+                    }
+                  },
+                  "Sell": {
+                    "value": {
+                      "orderId": "3ae57c43-6fae-4b0c-b0d5-2c35759e76d9",
+                      "quoteId": "63e154dbc47d9176668a9af6",
+                      "amountIn": 1,
+                      "amountOut": 1313696,
+                      "symbolIn": "ETH",
+                      "symbolOut": "CLP",
+                      "providedAction": "url.example.com",
+                      "email": "kenneth@koywe.com",
+                      "documentNumber": "158289164"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "Address empty": {
+                    "value": {
+                      "message": "\"destinationAddress\" is not allowed to be empty"
+                    }
+                  },
+                  "Account not found": {
+                    "value": {
+                      "message": "Account not found for email: **@**.***"
+                    }
+                  },
+                  "Email required": {
+                    "value": {
+                      "message": "email field is required"
+                    }
+                  },
+                  "Email difference": {
+                    "value": {
+                      "message": "account email can not be different to token account:"
+                    }
+                  },
+                  "QuoteId syntax": {
+                    "value": {
+                      "message": "\"quoteId\" must be a string"
+                    }
+                  },
+                  "QuoteId empty": {
+                    "value": {
+                      "message": "\"quoteId\" is not allowed to be empty"
+                    }
+                  },
+                  "metadata syntax": {
+                    "value": {
+                      "message": "\"metadata\" must be a string"
+                    }
+                  },
+                  "metadata empty": {
+                    "value": {
+                      "message": "\"metadata\" is not allowed to be empty"
+                    }
+                  },
+                  "documentNumber syntax": {
+                    "value": {
+                      "message": "\"documentNumber\" must be a string"
+                    }
+                  },
+                  "documentNumber empty": {
+                    "value": {
+                      "message": "\"documentNumber\" is not allowed to be empty"
+                    }
+                  },
+                  "input parameters conflict": {
+                    "value": {
+                      "message": "Must contain only one of [amountIn, amountOut]"
+                    }
+                  },
+                  "QuoteId parameters exclusion": {
+                    "value": {
+                      "message": "quoteId must be used without symbolOut, symbolIn, amountOut or amountIn"
+                    }
+                  },
+                  "PaymentMethodId invalid": {
+                    "value": {
+                      "message": "Payment method is restricted"
+                    }
+                  },
+                  "Currency amount less than permited": {
+                    "value": {
+                      "message": "Currency amount is less than the minimun available"
+                    }
+                  },
+                  "Currency amount more than permited": {
+                    "value": {
+                      "message": "Currency amount exceeds the maximun available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Object not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      }
+    },
+    "/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Returns order information.",
+        "description": "To try these services, an Authorization token must be provided as a BearerToken header. The Autherization token can be obtained in the /auth service.",
+        "operationId": "Getorder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order's identifier.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "orderId invalid": {
+                    "value": {
+                      "message": "\"orderId\" must be a valid GUID"
+                    }
+                  },
+                  "Code Lenght": {
+                    "value": {
+                      "message": "\"code\" length must be 6 characters long"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Object not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      }
+    },
+    "/quotes": {
+      "post": {
+        "tags": [
+          "Quote Queries"
+        ],
+        "summary": "Creates a purchase or sell quote",
+        "description": "Only one of the input parameters \"amountIn\" and \"amountOut\" must be provided. for on ramps receives adicionally clientId and paymentMethodId. Returns a quoteId that can be use to create an order (is not necessary, but if provided and still valid, fewer values will be necessary to create the order).",
+        "operationId": "CreateQuote",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/quotes_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "paymentMethodId required": {
+                    "value": {
+                      "message": "\"paymentMethodId\" is not allowed to be empty"
+                    }
+                  },
+                  "paymentMethodId syntax": {
+                    "value": {
+                      "message": "\"paymentMethodId\" must be a string"
+                    }
+                  },
+                  "input parameters conflict": {
+                    "value": {
+                      "message": "Must contain only one of [amountIn, amountOut]"
+                    }
+                  },
+                  "input parameters required": {
+                    "value": {
+                      "message": "Must contain at least one of [amountIn, amountOut]"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_403"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_422"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quotes/{quoteId}": {
+      "get": {
+        "tags": [
+          "Quote Queries"
+        ],
+        "summary": "Returns quote details",
+        "description": "Receives a quoteId value. One can be produced uing the previous quote service (post /quotes). Returns quote data.",
+        "operationId": "GetQuote",
+        "parameters": [
+          {
+            "name": "quoteId",
+            "in": "path",
+            "description": "The quote's identifier.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bank-accounts": {
+      "get": {
+        "tags": [
+          "Bank Queries"
+        ],
+        "summary": "Returns bank account info.",
+        "operationId": "GetBankAccount",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Symbol of the country of choice.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currencySymbol",
+            "in": "query",
+            "description": "Symbol of the currency of the chosen country.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_2"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Bank Queries"
+        ],
+        "summary": "Adds a bank account to proceed with the operation.",
+        "description": "bankCode and documentNumber are optional. documentedNumber is required when the users is not KYC'd.",
+        "operationId": "CreateBankAccount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bankaccounts_body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "accountNumber syntax": {
+                    "value": {
+                      "message": "\"accountNumber\" must be a string"
+                    }
+                  },
+                  "accountNumber empty": {
+                    "value": {
+                      "message": "\"accountNumber\" is not allowed to be empty"
+                    }
+                  },
+                  "bankCode empty": {
+                    "value": {
+                      "message": "\"bankCode\" is not allowed to be empty"
+                    }
+                  },
+                  "bankCode syntax": {
+                    "value": {
+                      "message": "\"bankCode\" must be a string"
+                    }
+                  },
+                  "bankCode invalid": {
+                    "value": {
+                      "message": "BankCode not valid "
+                    }
+                  },
+                  "currencySymbol invalid": {
+                    "value": {
+                      "message": "\"currencySymbol\" must be one of [CLP, COP, MXN, PEN]"
+                    }
+                  },
+                  "Email required": {
+                    "value": {
+                      "message": "email field is required"
+                    }
+                  },
+                  "Email invalid": {
+                    "value": {
+                      "message": "\"email\" is not allowed"
+                    }
+                  },
+                  "parameter required": {
+                    "value": {
+                      "message": "\"currencySymbol\" is required"
+                    }
+                  },
+                  "country invalid": {
+                    "value": {
+                      "message": "\"countryCode\" must be one of [MEX, CHL, COL, PER]"
+                    }
+                  },
+                  "Email not found": {
+                    "value": {
+                      "message": "Account not found."
+                    }
+                  },
+                  "ClientId not found": {
+                    "value": {
+                      "message": "Client not found"
+                    }
+                  },
+                  "Bank Account already exists": {
+                    "value": {
+                      "message": "this bank account is already registered"
+                    }
+                  },
+                  "DocumentNumber syntax": {
+                    "value": {
+                      "message": "\"accountNumber\" must be a string"
+                    }
+                  },
+                  "DocumentNumber empty": {
+                    "value": {
+                      "message": "\"documentNumber\" is not allowed to be empty"
+                    }
+                  },
+                  "DocumentNumber invalid": {
+                    "value": {
+                      "message": "documentNumber is not valid for \"countryCode\""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Bank Queries"
+        ],
+        "summary": "Deletes bank account info.",
+        "operationId": "DeleteBankAccount",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "query",
+            "description": "Bank info identifier.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "countryCode",
+            "in": "query",
+            "description": "Symbol of the country of choice.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currencySymbol",
+            "in": "query",
+            "description": "Symbol of the currency of the chosen country.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid _id parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_500"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthorizationToken": []
+          }
+        ]
+      }
+    },
+    "/bank-info/{countryCode}": {
+      "get": {
+        "tags": [
+          "Bank Queries"
+        ],
+        "summary": "Adds a bank account to proceed with the operation.",
+        "operationId": "GetBankinfo",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "in": "path",
+            "description": "Symbol of the country of choice.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_400"
+                },
+                "examples": {
+                  "CountryCode Invalid": {
+                    "value": {
+                      "message": "\"countryCode\" must be one of [MEX, CHL, COL, PER]"
+                    }
+                  },
+                  "Country not available": {
+                    "value": {
+                      "message": "not implemented for: "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Currency": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6294cd18d2b5f912da43e678"
+          },
+          "name": {
+            "type": "string",
+            "example": "Peso Chileno"
+          },
+          "symbol": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0
+          },
+          "logo": {
+            "type": "string",
+            "example": "url.example.com/clp.svg"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/Currency_limits"
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Currency_tokens"
+            }
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6303d71295ee10bace884ac4"
+          },
+          "name": {
+            "type": "string",
+            "example": "Binance Coin"
+          },
+          "symbol": {
+            "type": "string",
+            "example": "BNB"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "example": 18
+          },
+          "logo": {
+            "type": "string",
+            "example": "url.example.com/bnb.svg"
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Token_currencies"
+            }
+          }
+        }
+      },
+      "Payments": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "632d7fe6237ded3a748112cf"
+          },
+          "name": {
+            "type": "string",
+            "example": "WIRECL"
+          },
+          "description": {
+            "type": "string",
+            "example": "La comisión de transferencia bancaria equivale a un 1% del total de tu compra"
+          },
+          "fee": {
+            "type": "integer",
+            "example": 0
+          },
+          "image": {
+            "type": "string",
+            "example": "https://rampa.koywe.com/paymentProviders/wire-cl.png"
+          },
+          "details": {
+            "type": "string",
+            "example": "Koywe SpA\nCta Cte 6824645\n76.215.256-2\nBanco Santander\ntef@koywe.com"
+          }
+        }
+      },
+      "AuthToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pY29sYXNAa295d2UuY29tIiwibWV0YUFjY291bnQiOiI2Mzg4ZDVjNzA2YmFkOWIxNjE1MWYzNmEiLCJjbGllbnRBdXRoIjpmYWxzZSwiaWF0IjoxNjc0NTAzMzE2LCJleHAiOjE2NzQ1NDY1MTZ9.C1aL9-FSL-VF8t9wce--4M6ZB_d1IHihpDuOYCmUcIT_-M3Fvp2Zds1HSI9WKPjvCj4zLhCBIX9Z8MExhOPinLsjWJO_SC96YFzo7HjZRZgRKgRNMjPaz5w2NSRnRKYqRbaH_ZLIcdoMu1hD7y1wQhsSh1TXQ9MuWfXZvto-484geJ5FWjkmaV5QpNIP-1B5OVL_skZ46Kin4uX3CMpRjeFA3x0__RLZIOqVFy_1XCnzrew_UjamXWoUWonP_4xoPmcSTz23OEvPPxW2syFkvakDskIovOyCU2WzlLs0nMhY6UnKQzpGhN9DclXdVG89xyJOB9ri2GKAW8pIIbguioTgqhykpaaSxRoDFtIvsGD8ptDMoF4xp1aZG2Tq_23MFVrF8EbTzHTx0DB4Gt2hWY5W5nabEU9gts0PqIbuEWVhD4KryrOQv5vmbfr2GuXRx_194zAD2ixSfxyiWnhAN_FMvzmj2wwe-GWWLaKH35yqHfwNRJIkYqEX5TL5T0KFR5izWbGJoyR6EXn6MU1-SrO1by22HmLlKF7Fs-2zXSYTT31a5KnWenA2UPMWbLUbsP_xY3ESWP3YY2k7QRkqIP-Rl90RYHi5_z2"
+          }
+        }
+      },
+      "ValidationId": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63c80872b85f35f37e567064"
+          }
+        }
+      },
+      "CreateOrder": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string"
+          },
+          "quoteId": {
+            "type": "string"
+          },
+          "amountIn": {
+            "type": "number"
+          },
+          "amountOut": {
+            "type": "number"
+          },
+          "symbolIn": {
+            "type": "string"
+          },
+          "symbolOut": {
+            "type": "string"
+          },
+          "paymentMethodId": {
+            "type": "string"
+          },
+          "providedAction": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "documentNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "example": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50"
+          },
+          "quoteId": {
+            "type": "string"
+          },
+          "koyweFee": {
+            "type": "number",
+            "example": 1000
+          },
+          "networkFee": {
+            "type": "number",
+            "example": 1000
+          },
+          "symbolIn": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "symbolOut": {
+            "type": "string",
+            "example": "MATIC"
+          },
+          "amountIn": {
+            "type": "number",
+            "example": 25000
+          },
+          "amountOut": {
+            "type": "number",
+            "example": 32.171150520770496
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "example": "6294d815d2b5f912da43e699"
+          },
+          "destinationAddress": {
+            "type": "string",
+            "example": "0x40f9bf922c23c43acede50Ab4425280C0ffBD697"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@gmail.com"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "example": 746.01
+          },
+          "status": {
+            "type": "string",
+            "example": "REJECTED"
+          },
+          "date": {
+            "$ref": "#/components/schemas/Order_date"
+          },
+          "outReceipt": {
+            "type": "string",
+            "example": "98abd8a6dbdba6d4b"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "logoIn": {
+            "type": "string",
+            "example": "urlExample.com/currencies/CLP.svg"
+          },
+          "logoOut": {
+            "type": "string",
+            "example": "urlExmaple.com/currencies/MATIC.svg"
+          }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "example": "63da8100c6d0af192f9f9e8c"
+          },
+          "amountIn": {
+            "type": "number",
+            "example": 238228
+          },
+          "amountOut": {
+            "type": "number",
+            "example": 1
+          },
+          "symbolIn": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "symbolOut": {
+            "type": "string",
+            "example": "BNB"
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "example": "632d7fe6237ded3a748112cf"
+          },
+          "exchangeRate": {
+            "type": "number",
+            "example": 235816
+          },
+          "koyweFee": {
+            "type": "number",
+            "example": 2358.16
+          },
+          "networkFee": {
+            "type": "number",
+            "example": 54
+          },
+          "co2": {
+            "type": "number",
+            "example": 0
+          },
+          "validFor": {
+            "type": "number",
+            "example": 10
+          },
+          "validUntil": {
+            "type": "number",
+            "example": 1675264266
+          }
+        }
+      },
+      "BankAccount": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63dd5fd9cccad469ee2408f7"
+          },
+          "bankCode": {
+            "type": "string",
+            "example": "SANTANDER"
+          },
+          "countryCode": {
+            "type": "string",
+            "example": "CHL"
+          },
+          "currencySymbol": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "1234596789"
+          },
+          "account": {
+            "type": "string",
+            "example": "62f28c4aa05176c3dfba8e"
+          },
+          "name": {
+            "type": "string",
+            "example": "BANCO SANTANDER"
+          }
+        }
+      },
+      "BankInfo": {
+        "type": "object",
+        "properties": {
+          "bankCode": {
+            "type": "string",
+            "example": "BANCO_CHILE"
+          },
+          "name": {
+            "type": "string",
+            "example": "BANCO DE CHILE"
+          },
+          "institutionName": {
+            "type": "string",
+            "example": "BANCO DE CHILE"
+          },
+          "transferCode": {
+            "type": "string",
+            "example": "001"
+          }
+        }
+      },
+      "inline_response_400": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_body": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "secret": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "partner not found"
+          }
+        }
+      },
+      "auth_validate_body": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "auth_code_body": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "clientId": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_404_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Client not found"
+          }
+        }
+      },
+      "orders_body": {
+        "required": [
+          "destinationAddress"
+        ],
+        "type": "object",
+        "properties": {
+          "quoteId": {
+            "type": "string",
+            "example": "63dd19bcf23fcbec3bfee51b"
+          },
+          "amountIn": {
+            "type": "number",
+            "example": 2000
+          },
+          "amountOut": {
+            "type": "number",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "example": "example@domain.com"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "example": "62a0c6a4c7ab3a52fd683080"
+          },
+          "destinationAddress": {
+            "type": "string",
+            "example": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697"
+          },
+          "symbolIn": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "symbolOut": {
+            "type": "string",
+            "example": "ETH"
+          },
+          "metadata": {
+            "type": "string"
+          }
+        }
+      },
+      "quotes_body": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "example": "eff455bda8da192d6ae0019c"
+          },
+          "symbolIn": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "symbolOut": {
+            "type": "string",
+            "example": "BNB"
+          },
+          "amountIn": {
+            "type": "number",
+            "example": 200000
+          },
+          "amountOut": {
+            "type": "number",
+            "example": 1
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "example": "632d7fe6237ded3a748112cf"
+          },
+          "executable": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "inline_response_422": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Debes ingresar crypto o currency"
+          }
+        }
+      },
+      "inline_response_403": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Payment method is restricted"
+          }
+        }
+      },
+      "inline_response_400_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "\"quoteId\" length must be 24 characters long"
+          }
+        }
+      },
+      "inline_response_400_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "bank account not found"
+          }
+        }
+      },
+      "bankaccounts_body": {
+        "required": [
+          "accountNumber",
+          "countryCode",
+          "currencySymbol"
+        ],
+        "type": "object",
+        "properties": {
+          "bankCode": {
+            "type": "string",
+            "example": "BANK"
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "123456789"
+          },
+          "countryCode": {
+            "type": "string",
+            "example": "CHL"
+          },
+          "currencySymbol": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "documentNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_400_3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Bank Account not found"
+          }
+        }
+      },
+      "inline_response_500": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "BankAccount error:Cast to ObjectId failed for value (type string) at path \"_id\" for model \"BankAccount\""
+          }
+        }
+      },
+      "Currency_limits": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "number",
+            "example": 2000
+          },
+          "max": {
+            "type": "number",
+            "example": 2000000
+          }
+        }
+      },
+      "Currency_tokens": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6283b7f8c7ab3a52fd8a51fc"
+          },
+          "name": {
+            "type": "string",
+            "example": "Binance Coin"
+          },
+          "symbol": {
+            "type": "string",
+            "example": "BNB"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "example": 18
+          },
+          "logo": {
+            "type": "string",
+            "example": "url.example.com/bnb.svg"
+          }
+        }
+      },
+      "Token_currencies": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6294cd18d2b5f912da43e678"
+          },
+          "name": {
+            "type": "string",
+            "example": "Peso Chileno"
+          },
+          "symbol": {
+            "type": "string",
+            "example": "CLP"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "example": 0
+          },
+          "logo": {
+            "type": "string",
+            "example": "url.example.com/clp.svg"
+          },
+          "limits": {
+            "$ref": "#/components/schemas/Currency_limits"
+          }
+        }
+      },
+      "Order_date": {
+        "type": "object",
+        "properties": {
+          "confirmationDate": {
+            "type": "string",
+            "example": "2023-01-17T16:37:22.626Z"
+          },
+          "paymentDate": {
+            "type": "string"
+          },
+          "executionDate": {
+            "type": "string"
+          },
+          "deliveryDate": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "AuthorizationToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
