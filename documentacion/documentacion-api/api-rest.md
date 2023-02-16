@@ -763,38 +763,40 @@ Number of pages shown.
 
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
-[
-  {
-    "orderId": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50",
-    "quoteId": null,
-    "koyweFee": 1000,
-    "networkFee": 1000,
-    "symbolIn": "CLP",
-    "symbolOut": "MATIC",
-    "amountIn": 25000,
-    "amountOut": 32.171150520770496,
-    "paymentMethodId": "6294d815d2b5f912da43e699",
-    "destinationAddress": "0x40f9bf922c23c43acede50Ab4425280C0ffBD697",
-    "email": "example@gmail.com",
-    "exchangeRate": 746.01,
-    "status": "REJECTED",
-    "date": {
-      "confirmationDate": "2023-01-17T16:37:22.626Z",
-      "paymentDate": null,
-      "executionDate": null,
-      "deliveryDate": null
-    },
-    "outReceipt": "98abd8a6dbdba6d4b",
-    "metadata": null,
-    "logoIn": "urlExample.com/currencies/CLP.svg",
-    "logoOut": "urlExmaple.com/currencies/MATIC.svg",
-    "pagination": {
-      "totalcount": 30,
-      "pageSize": 6,
-      "pageNumber": 5
+{
+  "orders": [
+    {
+      "orderId": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50",
+      "quoteId": null,
+      "koyweFee": 1000,
+      "networkFee": 1000,
+      "symbolIn": "CLP",
+      "symbolOut": "MATIC",
+      "amountIn": 25000,
+      "amountOut": 32.171150520770496,
+      "paymentMethodId": "6294d815d2b5f912da43e699",
+      "destinationAddress": "0x40f9bf922c23c43acede50Ab4425280C0ffBD697",
+      "email": "example@gmail.com",
+      "exchangeRate": 746.01,
+      "status": "REJECTED",
+      "date": {
+        "confirmationDate": "2023-01-17T16:37:22.626Z",
+        "paymentDate": null,
+        "executionDate": null,
+        "deliveryDate": null
+      },
+      "outReceipt": "98abd8a6dbdba6d4b",
+      "metadata": null,
+      "logoIn": "urlExample.com/currencies/CLP.svg",
+      "logoOut": "urlExmaple.com/currencies/MATIC.svg"
     }
+  ],
+  "pagination": {
+    "totalcount": 30,
+    "pageSize": 6,
+    "pageNumber": 5
   }
-]
+}
 ```
 {% endswagger-response %}
 

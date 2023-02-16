@@ -301,7 +301,7 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 <summary>Servicios de órdenes</summary>
 
-### Crear Orden
+## Crear Orden
 
 Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providerData`).&#x20;
 
@@ -309,15 +309,15 @@ Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno com
 
 Necesitas introducir `amountIn` o `amountOut`, no ambos.
 
-## On ramp
+### On ramp
 
 Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut, y paymentMethodId`.
 
-## Off ramp
+### Off ramp
 
 Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut.`
 
-Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria)
+Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria).
 
 ```json
 "mutation":
@@ -345,7 +345,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 }
 ```
 
-### Consultar Orden
+## Consultar Orden
 
 ```json
 "query":
@@ -384,7 +384,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 }
 ```
 
-### Lista de órdenes pasadas
+## Lista de órdenes pasadas
 
 Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` especificado al autenticarse.
 
@@ -392,29 +392,36 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 "query":
 "query Orders {
   orders {
-    orderId
-    quoteId
-    symbolIn
-    symbolOut
-    amountIn
-    amountOut
-    email
-    exchangeRate
-    koyweFee
-    status
-    outReceipt
-    dates {
-      confirmationDate
-      paymentDate
-      executionDate
-      deliveryDate
+    orders {
+      orderId
+      quoteId
+      koyweFee
+      networkFee
+      symbolIn
+      symbolOut
+      amountIn
+      amountOut
+      paymentMethodId
+      destinationAddress
+      email
+      exchangeRate,
+      status
+      date {
+        confirmationDate
+        paymentDate
+        executionDate
+        deliveryDate
+      },
+      outReceipt
+      metadata
+      logoIn
+      logoOut
+    },
+    pagination {
+      totalcount
+      pageSize
+      pageNumber
     }
-    destinationAddress
-    networkFee
-    paymentMethodId
-    metadata
-    logoIn
-    logoOut
   }
 }"
 ```
