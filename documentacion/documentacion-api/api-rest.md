@@ -341,15 +341,15 @@ If you want to know how to receive your own clientId and secret, please check th
 {% endswagger-description %}
 
 {% swagger-parameter in="body" name="clientId" type="String" required="true" %}
-
+Your company's unique Koywe identifier.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="email" type="String" %}
-
+email asociated with the account
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="secret" type="String" required="true" %}
-
+Password given along with the clientId.
 {% endswagger-parameter %}
 
 {% swagger-response status="200: OK" description="successful operation" %}
@@ -423,7 +423,7 @@ The email that is sent contains a 6-digit code that allows you to validate your 
 {% endswagger-description %}
 
 {% swagger-parameter in="body" name="email" type="String" required="true" %}
-
+email you want the code to be sent at.
 {% endswagger-parameter %}
 
 {% swagger-response status="200: OK" description="Successful operation" %}
@@ -461,11 +461,11 @@ The value "code" shall be retrieved from the email sent by the previous method c
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="code" type="String" required="true" %}
-
+6-digit code sent to the email.
 {% endswagger-parameter %}
 
 {% swagger-parameter in="body" name="clientId" type="String" required="true" %}
-
+Your company's unique Koywe identifier.
 {% endswagger-parameter %}
 
 {% swagger-response status="200: OK" description="Successful operation" %}
@@ -574,31 +574,31 @@ If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, 
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="email" %}
+{% swagger-parameter in="body" name="email" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="documentNumber" %}
+{% swagger-parameter in="body" name="documentNumber" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="paymentMethodId" %}
+{% swagger-parameter in="body" name="paymentMethodId" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="destinationAddress" required="true" %}
+{% swagger-parameter in="body" name="destinationAddress" required="true" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="symbolIn" %}
+{% swagger-parameter in="body" name="symbolIn" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="symbolOut" %}
+{% swagger-parameter in="body" name="symbolOut" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="metadata" %}
+{% swagger-parameter in="body" name="metadata" type="String" %}
 
 {% endswagger-parameter %}
 
@@ -896,27 +896,27 @@ Order's identifier.
 bankCode and documentNumber are optional. documentedNumber is required when the users is not KYC'd.
 {% endswagger-description %}
 
-{% swagger-parameter in="body" name="bankCode" %}
+{% swagger-parameter in="body" name="bankCode" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="accountNumber" required="true" %}
+{% swagger-parameter in="body" name="accountNumber" required="true" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="countryCode" required="true" %}
+{% swagger-parameter in="body" name="countryCode" required="true" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="currencySymbol" required="true" %}
+{% swagger-parameter in="body" name="currencySymbol" required="true" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="documentNumber" %}
+{% swagger-parameter in="body" name="documentNumber" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="email" %}
+{% swagger-parameter in="body" name="email" type="String" %}
 
 {% endswagger-parameter %}
 
@@ -1199,7 +1199,7 @@ Returns a quoteId that can be use to create an order (is not necessary, but if p
 If executable is true, we store it and return a UUID.
 {% endswagger-description %}
 
-{% swagger-parameter in="body" name="clientId" %}
+{% swagger-parameter in="body" name="clientId" type="String" %}
 
 {% endswagger-parameter %}
 
@@ -1211,15 +1211,15 @@ If executable is true, we store it and return a UUID.
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="symbolIn" %}
+{% swagger-parameter in="body" name="symbolIn" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="symbolOut" %}
+{% swagger-parameter in="body" name="symbolOut" type="String" %}
 
 {% endswagger-parameter %}
 
-{% swagger-parameter in="body" name="paymentMethodId" %}
+{% swagger-parameter in="body" name="paymentMethodId" type="String" %}
 
 {% endswagger-parameter %}
 
