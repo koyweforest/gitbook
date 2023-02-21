@@ -76,7 +76,7 @@ Symbol assosiated with the currency of choice.
 your company's unique Koywe identifier.
 {% endswagger-parameter %}
 
-{% swagger-response status="200: OK" description="	 Successful operation" %}
+{% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
   "_id": "6294cd18d2b5f912da43e678",
@@ -231,37 +231,7 @@ Symbol assosiated with the token of choice.
 ```json
 {
   "message": "\"clientId\" length must be 24 characters long"
-
-Currently Koywe supports operations with the following tokens [ETH, MATIC, BNB, BTC, USDC, DAI]
-your company's unique Koywe identifier.
-[
-  {
-    "_id": "6303d71295ee10bace884ac4",
-    "name": "Binance Coin",
-    "symbol": "BNB",
-    "decimals": 18,
-    "logo": "url.example.com/bnb.svg",
-    "currencies": [
-      {
-        "_id": "6294cd18d2b5f912da43e678",
-        "name": "Peso Chileno",
-        "symbol": "CLP",
-        "decimals": 0,
-        "logo": "url.example.com/clp.svg",
-        "limits": {
-          "min": 2000,
-          "max": 2000000
-        }
-      }
-    ]
-  }
-]
-{
-  "message": "\"clientId\" must only contain alphanumeric characters"
 }
-{
-  "message": "\"clientId\" length must be 24 characters long"
-}}
 ```
 {% endswagger-response %}
 
@@ -559,7 +529,7 @@ For authenticated calls that do not have an email asociated, one must be include
 
 If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, amountOut, and paymentMethodId are nullable.
 
-&#x20;In the case of amountIn and amountOut, only one must be as an input parameter.
+&#x20;In the case of amountIn and amountOut, only one must be passed as an input parameter.
 {% endswagger-description %}
 
 {% swagger-parameter in="body" name="quoteId" type="String" %}
@@ -816,7 +786,7 @@ Number of pages shown.
 ```
 {% endswagger-response %}
 
-{% swagger-response status="404: Not Found" description="bject not found" %}
+{% swagger-response status="404: Not Found" description="object not found" %}
 ```json
 {
     "message": "Client not found"
@@ -1130,7 +1100,7 @@ Symbol of the currency of the chosen country.
 ```
 {% endswagger-response %}
 
-{% swagger-response status="400: Bad Request" description="Invalid request" %}
+{% swagger-response status="400: Bad Request" description="_id not found" %}
 ```json
 {
   "message": "Bank Account not found"
@@ -1138,10 +1108,18 @@ Symbol of the currency of the chosen country.
 ```
 {% endswagger-response %}
 
-{% swagger-response status="500: Internal Server Error" description="Invalid _id parameter" %}
+{% swagger-response status="400: Bad Request" description="Invalid _id parameter" %}
 ```json
 {
   "message": "BankAccount error:Cast to ObjectId failed for value (type string) at path \"_id\" for model \"BankAccount\""
+}
+```
+{% endswagger-response %}
+
+{% swagger-response status="400: Bad Request" description="_id length" %}
+```javascript
+{
+  "message": "\"_id\" length must be 24 characters long"
 }
 ```
 {% endswagger-response %}
