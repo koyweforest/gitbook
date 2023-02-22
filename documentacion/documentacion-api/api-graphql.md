@@ -45,7 +45,7 @@ Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario e
 {
   "input": {
     "clientId": "63631a561f41f8fd18f8c3e0",
-    "secret": "secretpassword"
+    "secret": "secretpassword",
     "email": "email@domain.com" –-> optional
   }
 }
@@ -83,7 +83,7 @@ Envía un código de 6 dígitos al email entregado en el input.
 
 <summary>Validación de código</summary>
 
-el valor de `code` en el input debe ser recogido del correo enviado por el servicio anterior.
+El valor de `code` en el input debe ser recogido del correo enviado por el servicio anterior.
 
 ```json
 "mutation":
@@ -112,14 +112,14 @@ el valor de `code` en el input debe ser recogido del correo enviado por el servi
 
 <summary>Pares</summary>
 
-Obtener los pares de moneda-tokens soportados.
+Obtiene los pares de moneda-tokens soportados.
 
 Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 
 ```json
 "query":
 "query GetCurrencyTokens($input: GetCurrenciesInput!) {
-  CurrencyWithTokens(input: $input) {
+  CurrencyWithTokensV2(input: $input) {
     ID
     name
     symbol
@@ -148,14 +148,14 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 }
 ```
 
-Obtener los pares de token-monedas soportados.
+Obtiene los pares de token-monedas soportados.
 
 Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 
 ```json
 "query":
 "query GetTokenCurrencies($input: GetCurrenciesInput!) {
-  TokenWithCurrencies(input: $input) {
+  TokenWithCurrenciesV2(input: $input) {
     ID
     name
     symbol
@@ -192,7 +192,7 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 
 Listado de los medios de pago disponibles y sus detalles (fee, datos de transferencia, etc) para una moneda específica.
 
-Requiere: `symbol`
+Requiere: `symbol`, símbolo de la moneda nacional.
 
 Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de acuerdo a este parámetro.
 
@@ -337,9 +337,9 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
     "email": "example@domain.com", //for API calls
     "documentNumber": null,
     "paymentMethodId": "632d7fe6237ded3a748112cf",  // This value corresponds to the _id value returned after calling GetPaymentProviderList
-    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid,
-    "symbolIn": CLP,
-    "symbolOut": ETH,
+    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid
+    "symbolIn": "CLP",
+    "symbolOut": "ETH",
     "metadata": null
   }
 }
@@ -347,10 +347,12 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 ## Consultar Orden
 
+Retorna información de una order. Recive un `quoteId`.
+
 ```json
 "query":
 "query Order($input: GetOrderInput!) {
-  getOrder(input: $input){
+  OrderOutput(input: $input){
     orderId
     quoteId
     symbolIn
@@ -388,42 +390,54 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` especificado al autenticarse.
 
+`pagesize`: Límite de 50, representa la cantidad de respuestas por página.
+
+`pageNumber`: Número de páginas a mostrar.
+
 ```json
 "query":
-"query Orders {
-  orders {
-    orders {
+"query Orders($input: PaginationInput!) {
+  OrderOutputPaginated(input: $input) {
+    pagination {
+      totalCount
+      pageSize
+      pageNumber
+    }
+    data {
       orderId
       quoteId
-      koyweFee
-      networkFee
+      orderType
       symbolIn
       symbolOut
+      logoIn
+      logoOut
       amountIn
       amountOut
       paymentMethodId
       destinationAddress
       email
-      exchangeRate,
+      exchangeRate
+      koyweFee
+      networkFee
       status
-      date {
+      outReceipt
+      dates {
         confirmationDate
         paymentDate
         executionDate
         deliveryDate
-      },
-      outReceipt
-      metadata
-      logoIn
-      logoOut
-    },
-    pagination {
-      totalcount
-      pageSize
-      pageNumber
+      }
+      metaData
     }
   }
 }"
+"variables":
+{
+  "input": {
+    "pageNumber": null,
+    "pageSize": null
+  }
+}
 ```
 
 </details>
@@ -434,10 +448,12 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 ### Get Bank Account
 
+Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerdo a `countryCode` y `currencySymbol`.
+
 ```json
 "query":
 "query GetBankAccount($filters: FiltersBankAccount!) {
-  getBankAccount(filters: $filters) {
+  BankAccountResponse(filters: $filters) {
     _id
     name
     bankCode
@@ -458,6 +474,8 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 ### Get Bank Info by Country
 
+Retorna una lista con los bancos que son soportados para un `countryCode` dado.
+
 ```json
 "query":
 "query GetBankInfoByCountry($countryCode: String!) {
@@ -476,13 +494,18 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 ### Create Bank Account
 
-optional: `bankCode, documentNumber`
+Crea una nueva cuenta bancaria y la guarda para futuras operaciones.
+
+opcional: `bankCode, documentNumber`
+
+`documentNumber` es requerido en el caso de que el usuario no haya hecho el KYC.
 
 ```json
 "mutation":
 "mutation CreateBankAccount($input: BankAccountInput!) {
-  getBankAccount(filters: $filters) {
+  createBankAccount(filters: $filters) {
     _id
+    name
     bankCode
     countryCode
     currencySymbol
@@ -496,7 +519,8 @@ optional: `bankCode, documentNumber`
     "bankCode": "SANTANDER",
     "accountNumber": "0123123123",
     "countryCode": "CHL",
-    "currencySymbol": "CLP"
+    "currencySymbol": "CLP",
+    "email": "example@domain.com"
   }
 }
 ```
@@ -508,6 +532,7 @@ optional: `bankCode, documentNumber`
 "mutation DeleteBankAccount($input: DeleteBankAccountInput!) {
   deleteBankAccount(input: $input) {
     _id
+    name
     bankCode
     countryCode
     currencySymbol
@@ -518,7 +543,7 @@ optional: `bankCode, documentNumber`
 "variables":
 {
   "input": {
-    "_id": "63bd75901ea16ea6e23109b5",
+    "_id": "63bd75901ea16ea6e23109b5", //Bank account identifier
     "countryCode": "CHL",
     "currencySymbol": "CLP"
   }
