@@ -37,7 +37,7 @@ Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario e
 ```json
 "mutation":
 "mutation authenticate($input: AuthInput!) {
-  authenticate(input: $input) {
+  AuthenticateResDto(input: $input) {
     token
   }
 }",
@@ -64,7 +64,7 @@ Envía un código de 6 dígitos al email entregado en el input.
 ```json
 "mutation":
 "mutation ValidateAccount($input: ValidateAccountInput!) {
-  validateAccount(input: $input) {
+  ValidateAccountResponse(input: $input) {
     _id
   }
 }",
@@ -88,7 +88,7 @@ el valor de `code` en el input debe ser recogido del correo enviado por el servi
 ```json
 "mutation":
 "mutation ValidateCode($input: ValidateCodeInput!) {
-  validateCode(input: $input) {
+  ValidateCodeResponse(input: $input) {
     token
     isIdentify
     needVerificate
@@ -119,7 +119,7 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 ```json
 "query":
 "query GetCurrencyTokens($input: GetCurrenciesInput!) {
-  GetCurrencyTokens(input: $input) {
+  CurrencyWithTokens(input: $input) {
     ID
     name
     symbol
@@ -155,7 +155,7 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 ```json
 "query":
 "query GetTokenCurrencies($input: GetCurrenciesInput!) {
-  GetTokenCurrencies(input: $input) {
+  TokenWithCurrencies(input: $input) {
     ID
     name
     symbol
@@ -199,7 +199,7 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 ```json
 "query":
 "query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
-  getPaymentProviderList(input: $input) {
+  PaymentProviderListResDto(input: $input) {
     ID
     name
     clientId
@@ -229,8 +229,8 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 Devuelve un "Quote". Recive un quoteId.
 
 <pre class="language-json"><code class="lang-json"><strong>"query":
-</strong><strong>"query GetQuote($quoteId: String!) {
-</strong>  getQuote(quoteId: $quoteId) {
+</strong><strong>"query Quote($quoteId: String!) {
+</strong>  QuoteResult(quoteId: $quoteId) {
     amountIn
     amountOut
     symbolIn
@@ -245,7 +245,7 @@ Devuelve un "Quote". Recive un quoteId.
 }",
 "variables":
 {
-  "quoteId": "63c59396a38c6506a620162f"
+  "quoteId": "63c59396a38c6506a620162f" //Created when calling mutation quote
 }
 </code></pre>
 
@@ -255,8 +255,8 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
 
 ```json
 "mutation":
-"mutation CreateOrder($input: OrderInput!) {
-  createOrder(input: $input) {
+"mutation Quote($input: QuoteInput!) {
+  QuoteResult(input: $input) {
     orderId
     quoteId
     symbolOut
@@ -278,7 +278,7 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
     "amountOut": 3.3,
     "symbolIn": "CLP",
     "symbolOut": "ETH",
-    "paymentMethodId": null,
+    "paymentMethodId": null, // This value corresponds to the _id value returned after calling GetPaymentProviderList
     "validFor": 30, //measured in seconds
     "validUntil": "15:02:44Z",
     "networkFee": 4000,
@@ -321,8 +321,8 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 ```json
 "mutation":
-"mutation CreateOrder($input: OrderInput!) {
-  createOrder(input: $input) {
+"mutation Order($input: OrderInput!) {
+  OrderResult(input: $input) {
     orderId
   }
 }"
@@ -336,7 +336,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
     "amountOut": 1,
     "email": "example@domain.com", //for API calls
     "documentNumber": null,
-    "paymentMethodId": "632d7fe6237ded3a748112cf", // mandatory, from the list detailed above,
+    "paymentMethodId": "632d7fe6237ded3a748112cf",  // This value corresponds to the _id value returned after calling GetPaymentProviderList
     "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid,
     "symbolIn": CLP,
     "symbolOut": ETH,
@@ -349,7 +349,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 ```json
 "query":
-"query GetOrder($input: GetOrderInput!) {
+"query Order($input: GetOrderInput!) {
   getOrder(input: $input){
     orderId
     quoteId
@@ -379,7 +379,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "variables":
 {
   "input": {
-    "UUID": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1"
+    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1" //Created when calling mutation Order
   }
 }
 ```
