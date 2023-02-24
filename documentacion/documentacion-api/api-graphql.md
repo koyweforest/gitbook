@@ -303,7 +303,7 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 ## Crear Orden
 
-Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providerData`).&#x20;
+Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providedData`).&#x20;
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
@@ -324,11 +324,25 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 "mutation Order($input: OrderInput!) {
   OrderResult(input: $input) {
     orderId
+    providedData
+    amountIn
+    amountOut
+    documentNumber
+    email
+    metadata
+    orderId
+    paymentMethodId
+    providedAction
+    providedAddress
+    quoteId
+    symbolIn
+    symbolOut
   }
 }"
 "variables":
 {
   "input": {
+    "callbackUrl": "example@domain.com",
     "quoteId": null, //nullable. if provided and quote is still valid, 
                     //symbolIn, symbolOut, amountIn, amountOut, 
                     //and paymentMethodId are nullable
