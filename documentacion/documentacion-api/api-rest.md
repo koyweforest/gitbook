@@ -2,7 +2,7 @@
 
 En esta sección podrás ver los servicios REST que ofrece Koywe. También puedes ingresar al link que dejamos abajo para que puedas probar la API en Swaggerhub directamente desde tu navegador.
 
-URL de pruebas: [https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.0](https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.0)
+URL de pruebas: [https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.1](https://app.swaggerhub.com/apis-docs/Koywe/APIKoywe/1.0.1)
 
 Adicionalmente te dejamos el link para que descargues nuestra API y lo puedas probar donde quieras!
 
