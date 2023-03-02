@@ -734,7 +734,7 @@ Number of pages shown.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "orders": [
+  "data": [
     {
       "orderId": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50",
       "quoteId": null,
