@@ -63,7 +63,7 @@ Envía un código de 6 dígitos al email entregado en el input.
 
 ```json
 "mutation":
-"mutation ValidateAccount($input: ValidateAccountInput!) {
+"mutation validateAccount($input: ValidateAccountInput!) {
   ValidateAccountResponse(input: $input) {
     _id
   }
@@ -87,7 +87,7 @@ El valor de `code` en el input debe ser recogido del correo enviado por el servi
 
 ```json
 "mutation":
-"mutation ValidateCode($input: ValidateCodeInput!) {
+"mutation validateCode($input: ValidateCodeInput!) {
   ValidateCodeResponse(input: $input) {
     token
     isIdentify
@@ -118,20 +118,21 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 
 ```json
 "query":
-"query GetCurrencyTokens($input: GetCurrenciesInput!) {
+"query GetCurrencyTokensV2($input: GetCurrenciesInput!) {
   CurrencyWithTokensV2(input: $input) {
-    ID
+    _id
     name
     symbol
     decimals
     clientId
     logo
+    locate
     limits {
       min
       max
     }
     tokens {
-      ID
+      _id
       name
       symbol
       decimals
@@ -156,17 +157,17 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 "query":
 "query GetTokenCurrencies($input: GetCurrenciesInput!) {
   TokenWithCurrenciesV2(input: $input) {
-    ID
+    _id
     name
     symbol
     decimals
-    clientId
     logo
     currencies {
-      ID
+      _id
       name
       symbol
       decimals
+      locale
       logo
       limits {
         min
@@ -198,14 +199,13 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 
 ```json
 "query":
-"query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
+"query getPaymentProviderList($input: GetPaymentProviderListInput!) {
   PaymentProviderListResDto(input: $input) {
-    ID
-    name
+    _id
     clientId
     description
     fee //Includes Koywe Fee
-    Logo // example value: https://rampa.koywe.com/paymentProviders/exampleImage.svg
+    image // example value: https://rampa.koywe.com/paymentProviders/exampleImage.svg
     details //Currently applies only to Wire payment method
   }
 }",
@@ -214,6 +214,7 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
   "input": {
     "symbol": "COP"
     "clientId": "f87aad3as90fe5489bb5099f"
+    "currencyId": "489bb507aad3as90fe0f"
   }
 }
 ```
@@ -229,16 +230,17 @@ Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de ac
 Devuelve un "Quote". Recive un quoteId.
 
 <pre class="language-json"><code class="lang-json"><strong>"query":
-</strong><strong>"query Quote($quoteId: String!) {
+</strong><strong>"query getQuote($quoteId: String!) {
 </strong>  QuoteResult(quoteId: $quoteId) {
     amountIn
     amountOut
+    co2
+    exchangeRate
     symbolIn
     symbolOut
     paymentMethodId
     koyweFee
-    netFee
-    netAmountIn // = amountIn - koyweFee - networkFee
+    networkFee
     validFor
     validUntil
   }
@@ -255,20 +257,19 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
 
 ```json
 "mutation":
-"mutation Quote($input: QuoteInput!) {
+"mutation quote($input: QuoteInput!) {
   QuoteResult(input: $input) {
-    orderId
-    quoteId
-    symbolOut
-    symbolIn
-    amountOut
     amountIn
+    amountOut
+    co2
+    exchangeRate
+    symbolIn
+    symbolOut
     paymentMethodId
-    providedAddress
-    providedAction
-    email
-    documentNumber
-    metadata
+    koyweFee
+    networkFee
+    validFor
+    validUntil
   }
 }",
 "variables":
@@ -276,14 +277,10 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
   "input": {
     "amountIn": 3716338,
     "amountOut": 3.3,
+    "clientId": "cse7fj283rkn2x6v7rr",
     "symbolIn": "CLP",
     "symbolOut": "ETH",
     "paymentMethodId": null, // This value corresponds to the _id value returned after calling GetPaymentProviderList
-    "validFor": 30, //measured in seconds
-    "validUntil": "15:02:44Z",
-    "networkFee": 4000,
-    "koyweFee": 2338,
-    "netAmountIn": 3710000, // = amountIn - koyweFee - networkFee
     "executable": false //set false by default. If value is set true, we store it and return a UUID.
   }
 }
@@ -321,10 +318,9 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 ```json
 "mutation":
-"mutation Order($input: OrderInput!) {
+"mutation createOrder($input: OrderInput!) {
   OrderResult(input: $input) {
     orderId
-    providedData
     amountIn
     amountOut
     documentNumber
@@ -365,7 +361,7 @@ Retorna información de una order. Recive un `quoteId`.
 
 ```json
 "query":
-"query Order($input: GetOrderInput!) {
+"query getOrder($input: GetOrderInput!) {
   OrderOutput(input: $input){
     orderId
     quoteId
@@ -378,6 +374,7 @@ Retorna información de una order. Recive un `quoteId`.
     koyweFee
     status
     outReceipt
+    orderType
     dates {
       confirmationDate
       paymentDate
@@ -387,7 +384,6 @@ Retorna información de una order. Recive un `quoteId`.
     destinationAddress
     networkFee
     paymentMethodId
-    metadata
     logoIn
     logoOut
   }
@@ -410,7 +406,7 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 ```json
 "query":
-"query Orders($input: PaginationInput!) {
+"query orders($input: PaginationInput!) {
   OrderOutputPaginated(input: $input) {
     pagination {
       totalCount
@@ -441,7 +437,6 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
         executionDate
         deliveryDate
       }
-      metaData
     }
   }
 }"
@@ -466,7 +461,7 @@ Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerd
 
 ```json
 "query":
-"query GetBankAccount($filters: FiltersBankAccount!) {
+"query getBankAccount($filters: FiltersBankAccount!) {
   BankAccountResponse(filters: $filters) {
     _id
     name
@@ -492,8 +487,8 @@ Retorna una lista con los bancos que son soportados para un `countryCode` dado.
 
 ```json
 "query":
-"query GetBankInfoByCountry($countryCode: String!) {
-  getBankInfoByCountry(countryCode: $countryCode) {
+"query getBankInfoByCountry($countryCode: String!) {
+  BankInfoResponse(countryCode: $countryCode) {
     bankCode
     name
     institutionName
@@ -516,8 +511,8 @@ opcional: `bankCode, documentNumber`
 
 ```json
 "mutation":
-"mutation CreateBankAccount($input: BankAccountInput!) {
-  createBankAccount(filters: $filters) {
+"mutation createBankAccount($input: BankAccountInput!) {
+  BankAccountResponse(input: $input) {
     _id
     name
     bankCode
@@ -534,6 +529,7 @@ opcional: `bankCode, documentNumber`
     "accountNumber": "0123123123",
     "countryCode": "CHL",
     "currencySymbol": "CLP",
+    "documentNumber": "12345678",
     "email": "example@domain.com"
   }
 }
@@ -543,8 +539,8 @@ opcional: `bankCode, documentNumber`
 
 ```json
 "mutation":
-"mutation DeleteBankAccount($input: DeleteBankAccountInput!) {
-  deleteBankAccount(input: $input) {
+"mutation deleteBankAccount($input: DeleteBankAccountInput!) {
+  BankAccountResponse(input: $input) {
     _id
     name
     bankCode
