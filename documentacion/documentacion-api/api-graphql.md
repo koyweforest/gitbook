@@ -197,18 +197,18 @@ Requiere: `symbol`, símbolo de la moneda nacional.
 
 Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de acuerdo a este parámetro.
 
-```json
-"query":
-"query getPaymentProviderList($input: GetPaymentProviderListInput!) {
-  PaymentProviderListResDto(input: $input) {
+```graphql
+query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
+  getPaymentProviderList(input: $input) {
     _id
-    clientId
+    name
+    fee
+    image
     description
-    fee //Includes Koywe Fee
-    image // example value: https://rampa.koywe.com/paymentProviders/exampleImage.svg
-    details //Currently applies only to Wire payment method
+    details
   }
-}",
+}
+,
 "variables":
 {
   "input": {
