@@ -34,13 +34,12 @@ Require: `clientId`, `secret`
 
 Opcional: `email`. Este campo asocia las transacciones a una cuenta de usuario específica y permite ver la información asociada a esta.
 
-```json
-"mutation":
-"mutation authenticate($input: AuthInput!) {
-  AuthenticateResDto(input: $input) {
+```graphql
+mutation Authenticate($input: AuthInput!) {
+  authenticate(input: $input) {
     token
   }
-}",
+}
 "variables" :
 {
   "input": {
