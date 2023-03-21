@@ -60,13 +60,12 @@ Los dos siguientes servicios permiten la validación de un usuario final de mane
 
 Envía un código de 6 dígitos al email entregado en el input.
 
-```json
-"mutation":
-"mutation validateAccount($input: ValidateAccountInput!) {
-  ValidateAccountResponse(input: $input) {
+```graphql
+mutation validateAccount($input: ValidateAccountInput!) {
+  validateAccount(input: $input) {
     _id
   }
-}",
+}
 "variables" :
 {
   "input": {
@@ -84,17 +83,16 @@ Envía un código de 6 dígitos al email entregado en el input.
 
 El valor de `code` en el input debe ser recogido del correo enviado por el servicio anterior.
 
-```json
-"mutation":
-"mutation validateCode($input: ValidateCodeInput!) {
-  ValidateCodeResponse(input: $input) {
+```graphql
+mutation validateCode($input: ValidateCodeInput!) {
+  validateCode(input: $input) {
     token
     isIdentify
     needVerificate
     identity
     firstOp
   }
-}",
+}
 "variables" :
 {
   "input": {
@@ -115,10 +113,9 @@ Obtiene los pares de moneda-tokens soportados.
 
 Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
 
-```json
-"query":
-"query GetCurrencyTokensV2($input: GetCurrenciesInput!) {
-  CurrencyWithTokensV2(input: $input) {
+```graphql
+query GetCurrencyTokensV2($input: GetCurrenciesInput!) {
+  GetCurrencyTokensV2(input: $input) {
     _id
     name
     symbol
@@ -138,7 +135,7 @@ Opcional: `symbol.` El símbolo de la moneda a elección. `clientId`
       logo
     }
   }
-}",
+}
 "variables":
 {
   "input": {
@@ -152,10 +149,9 @@ Obtiene los pares de token-monedas soportados.
 
 Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
 
-```json
-"query":
-"query GetTokenCurrencies($input: GetCurrenciesInput!) {
-  TokenWithCurrenciesV2(input: $input) {
+```graphql
+query GetTokenCurrencies($input: GetCurrenciesInput!) {
+  GetTokenCurrencies(input: $input) {
     _id
     name
     symbol
@@ -174,7 +170,7 @@ Opcional: `symbol.` El símbolo del cripto a elección. `clientId`
       }
     }
   }
-}",
+}
 "variables":
 {
   "input": {
@@ -207,7 +203,6 @@ query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
     details
   }
 }
-,
 "variables":
 {
   "input": {
@@ -228,9 +223,8 @@ query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
 
 Devuelve un "Quote". Recive un quoteId.
 
-<pre class="language-json"><code class="lang-json"><strong>"query":
-</strong><strong>"query getQuote($quoteId: String!) {
-</strong>  QuoteResult(quoteId: $quoteId) {
+<pre class="language-graphql"><code class="lang-graphql"><strong>query getQuote($quoteId: String!) {
+</strong>  getQuote(quoteId: $quoteId) {
     amountIn
     amountOut
     co2
@@ -243,7 +237,7 @@ Devuelve un "Quote". Recive un quoteId.
     validFor
     validUntil
   }
-}",
+}
 "variables":
 {
   "quoteId": "63c59396a38c6506a620162f" //Created when calling mutation quote
@@ -254,10 +248,9 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
 
 ### Crear Quote
 
-```json
-"mutation":
-"mutation quote($input: QuoteInput!) {
-  QuoteResult(input: $input) {
+```graphql
+mutation quote($input: QuoteInput!) {
+  quote(input: $input) {
     amountIn
     amountOut
     co2
@@ -270,7 +263,7 @@ En todas estas queries, el parámetro `clientId` será ignorado si el request ti
     validFor
     validUntil
   }
-}",
+}
 "variables":
 {
   "input": {
@@ -315,10 +308,9 @@ Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amoun
 
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria).
 
-```json
-"mutation":
-"mutation createOrder($input: OrderInput!) {
-  OrderResult(input: $input) {
+```graphql
+mutation createOrder($input: OrderInput!) {
+  createOrder(input: $input) {
     orderId
     amountIn
     amountOut
@@ -333,7 +325,7 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
     symbolIn
     symbolOut
   }
-}"
+}
 "variables":
 {
   "input": {
@@ -358,10 +350,9 @@ Opcional: `email` (obligatorio si no se está autenticado con email), `documentN
 
 Retorna información de una order. Recive un `quoteId`.
 
-```json
-"query":
-"query getOrder($input: GetOrderInput!) {
-  OrderOutput(input: $input){
+```graphql
+query getOrder($input: GetOrderInput!) {
+  getOrder(input: $input){
     orderId
     quoteId
     symbolIn
@@ -386,7 +377,7 @@ Retorna información de una order. Recive un `quoteId`.
     logoIn
     logoOut
   }
-}"
+}
 "variables":
 {
   "input": {
@@ -403,10 +394,9 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 `pageNumber`: Número de páginas a mostrar.
 
-```json
-"query":
-"query orders($input: PaginationInput!) {
-  OrderOutputPaginated(input: $input) {
+```graphql
+query orders($input: PaginationInput!) {
+  orders(input: $input) {
     pagination {
       totalCount
       pageSize
@@ -438,7 +428,7 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
       }
     }
   }
-}"
+}
 "variables":
 {
   "input": {
@@ -458,10 +448,9 @@ Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` esp
 
 Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerdo a `countryCode` y `currencySymbol`.
 
-```json
-"query":
-"query getBankAccount($filters: FiltersBankAccount!) {
-  BankAccountResponse(filters: $filters) {
+```graphql
+query getBankAccount($filters: FiltersBankAccount!) {
+  getBankAccount(filters: $filters) {
     _id
     name
     bankCode
@@ -470,7 +459,7 @@ Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerd
     accountNumber
     account
   }
-}"
+}
 "variables":
 {
   "filters": {
@@ -484,16 +473,15 @@ Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerd
 
 Retorna una lista con los bancos que son soportados para un `countryCode` dado.
 
-```json
-"query":
-"query getBankInfoByCountry($countryCode: String!) {
-  BankInfoResponse(countryCode: $countryCode) {
+```graphql
+query getBankInfoByCountry($countryCode: String!) {
+  getBankInfoByCountry(countryCode: $countryCode) {
     bankCode
     name
     institutionName
     transferCode
   }
-}"
+}gr
 "variables":
 {
   "countryCode": "CHL"
@@ -508,10 +496,9 @@ opcional: `bankCode, documentNumber`
 
 `documentNumber` es requerido en el caso de que el usuario no haya hecho el KYC.
 
-```json
-"mutation":
-"mutation createBankAccount($input: BankAccountInput!) {
-  BankAccountResponse(input: $input) {
+```graphql
+mutation createBankAccount($input: BankAccountInput!) {
+  createBankAccount(input: $input) {
     _id
     name
     bankCode
@@ -520,7 +507,7 @@ opcional: `bankCode, documentNumber`
     accountNumber
     account
   }
-}"
+}
 "variables":
 {
   "input": {
@@ -536,10 +523,9 @@ opcional: `bankCode, documentNumber`
 
 ### Delete Bank Account
 
-```json
-"mutation":
-"mutation deleteBankAccount($input: DeleteBankAccountInput!) {
-  BankAccountResponse(input: $input) {
+```graphql
+mutation deleteBankAccount($input: DeleteBankAccountInput!) {
+  deleteBankAccount(input: $input) {
     _id
     name
     bankCode
@@ -548,7 +534,7 @@ opcional: `bankCode, documentNumber`
     accountNumber
     account
   }
-}"
+}
 "variables":
 {
   "input": {
