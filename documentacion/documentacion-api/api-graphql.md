@@ -45,7 +45,7 @@ mutation Authenticate($input: AuthInput!) {
   "input": {
     "clientId": "63631a561f41f8fd18f8c3e0",
     "secret": "secretpassword",
-    "email": "email@domain.com" –-> optional
+    "email": "email@domain.com" # optional
   }
 }
 ```
@@ -188,7 +188,7 @@ query GetTokenCurrencies($input: GetCurrenciesInput!) {
 
 Listado de los medios de pago disponibles y sus detalles (fee, datos de transferencia, etc) para una moneda específica.
 
-Requiere: `symbol`, símbolo de la moneda nacional.
+Requiere: `symbol`, símbolo de la moneda nacional. `currencyId`.
 
 Opcional: `clientId.` La lista de medios de pago disponibles pueden variar de acuerdo a este parámetro.
 
@@ -221,7 +221,7 @@ query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
 
 ### Consultar Quote
 
-Devuelve un "Quote". Recive un quoteId.
+Devuelve un "Quote". Recibe un `quoteId`.
 
 <pre class="language-graphql"><code class="lang-graphql"><strong>query getQuote($quoteId: String!) {
 </strong>  getQuote(quoteId: $quoteId) {
@@ -240,17 +240,16 @@ Devuelve un "Quote". Recive un quoteId.
 }
 "variables":
 {
-  "quoteId": "63c59396a38c6506a620162f" //Created when calling mutation quote
+  "quoteId": "63c59396a38c6506a620162f" #Created when calling mutation quote
 }
 </code></pre>
-
-En todas estas queries, el parámetro `clientId` será ignorado si el request tiene el token JWT de autenticación en los headers.
 
 ### Crear Quote
 
 ```graphql
 mutation quote($input: QuoteInput!) {
   quote(input: $input) {
+    quoteId
     amountIn
     amountOut
     co2
@@ -272,8 +271,8 @@ mutation quote($input: QuoteInput!) {
     "clientId": "cse7fj283rkn2x6v7rr",
     "symbolIn": "CLP",
     "symbolOut": "ETH",
-    "paymentMethodId": null, // This value corresponds to the _id value returned after calling GetPaymentProviderList
-    "executable": false //set false by default. If value is set true, we store it and return a UUID.
+    "paymentMethodId": null, # This value corresponds to the _id value returned after calling GetPaymentProviderList
+    "executable": false #set false by default. If value is set true, we store it and return a UUID.
   }
 }
 ```
@@ -292,7 +291,7 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 ## Crear Orden
 
-Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providedData`).&#x20;
+Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providedAction`).&#x20;
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
@@ -330,15 +329,15 @@ mutation createOrder($input: OrderInput!) {
 {
   "input": {
     "callbackUrl": "example@domain.com",
-    "quoteId": null, //nullable. if provided and quote is still valid, 
-                    //symbolIn, symbolOut, amountIn, amountOut, 
-                    //and paymentMethodId are nullable
+    "quoteId": null, #nullable. if provided and quote is still valid, 
+                    #symbolIn, symbolOut, amountIn, amountOut, 
+                    #and paymentMethodId are nullable
     "amountIn": 1.100.000,
     "amountOut": 1,
-    "email": "example@domain.com", //for API calls
+    "email": "example@domain.com", #for API calls
     "documentNumber": null,
-    "paymentMethodId": "632d7fe6237ded3a748112cf",  // This value corresponds to the _id value returned after calling GetPaymentProviderList
-    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", // Will return error if address is invalid
+    "paymentMethodId": "632d7fe6237ded3a748112cf",  # This value corresponds to the _id value returned after calling GetPaymentProviderList
+    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", # Will return error if address is invalid
     "symbolIn": "CLP",
     "symbolOut": "ETH",
     "metadata": null
@@ -348,7 +347,7 @@ mutation createOrder($input: OrderInput!) {
 
 ## Consultar Orden
 
-Retorna información de una order. Recive un `quoteId`.
+Retorna información de una order. Recibe un `orderId`.
 
 ```graphql
 query getOrder($input: GetOrderInput!) {
@@ -381,7 +380,7 @@ query getOrder($input: GetOrderInput!) {
 "variables":
 {
   "input": {
-    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1" //Created when calling mutation Order
+    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1" #Created when calling mutation Order
   }
 }
 ```
@@ -481,7 +480,7 @@ query getBankInfoByCountry($countryCode: String!) {
     institutionName
     transferCode
   }
-}gr
+}
 "variables":
 {
   "countryCode": "CHL"
@@ -523,6 +522,8 @@ mutation createBankAccount($input: BankAccountInput!) {
 
 ### Delete Bank Account
 
+Elimina una cuenta bancaria de la lista de cuentas guardadas.
+
 ```graphql
 mutation deleteBankAccount($input: DeleteBankAccountInput!) {
   deleteBankAccount(input: $input) {
@@ -538,7 +539,7 @@ mutation deleteBankAccount($input: DeleteBankAccountInput!) {
 "variables":
 {
   "input": {
-    "_id": "63bd75901ea16ea6e23109b5", //Bank account identifier
+    "_id": "63bd75901ea16ea6e23109b5", #Bank account identifier
     "countryCode": "CHL",
     "currencySymbol": "CLP"
   }
