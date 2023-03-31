@@ -10,11 +10,14 @@ Para facilitar la integración, tenemos la posibilidad de alertarte cuando pasa 
 
 Podrás definir una URL para recibir llamados cada vez que se gatille un evento cuando suceda algo importante para una transacción específica. Los posibles eventos son:
 
+* `payment_created`: orden creada
 * `payment_received`: pago confirmado por el medio de pago
 * `payment_rejected`: pago cancelado o rechazado
 * `payment_expired`: la transacción expiró antes de recibir confirmación de pago
 * `crypto_tx_sent`: transacción enviada a la blockchain
+* `fiat_sent`: fiat enviado a cuenta bancaria del usuario
 * `crypto_delivered`: transacción confirmada por la blockchain
+* `fiat_delivered`: fiat entregado a cuenta bancaria del usuario
 * `crypto_tx_failed`: transacción fallida en el blockchain
 
 Adicionalmente, podrás definir un `secret` para validar que somos nosotros quienes estamos enviando esos requests. Usando ese secret, encriptamos los parámetros enviados y agregamos el hash para que puedas verificar el mensaje:
