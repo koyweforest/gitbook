@@ -219,7 +219,7 @@ query GetPaymentProviderList($input: GetPaymentProviderListInput!) {
 
 <summary>Servicios Quote</summary>
 
-### Consultar Quote
+#### Consultar Quote
 
 Devuelve un "Quote". Recibe un `quoteId`.
 
@@ -244,7 +244,7 @@ Devuelve un "Quote". Recibe un `quoteId`.
 }
 </code></pre>
 
-### Crear Quote
+#### Crear Quote
 
 ```graphql
 mutation quote($input: QuoteInput!) {
@@ -289,21 +289,21 @@ Todas las queries a continuación requieren un Bearer Token en los headers:
 
 <summary>Servicios de órdenes</summary>
 
-## Crear Orden
+### Crear Orden
 
-Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providedAction`).&#x20;
+Crea una orden de compra o venta, retorna un UUID para seguimiento (`orderId`) y, dependiendo del medio de pago, una URL para realizarlo (`providedAction`).
 
 Para llamadas autenticadas sin haber asociado un `email`, debe incluirse uno como parámetro para asociar la transacción a un usuario específico.
 
 Necesitas introducir `amountIn` o `amountOut`, no ambos.
 
-### On ramp
+#### On ramp
 
-Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut, y paymentMethodId`.
+Requiere: `destinationAddress`, `quoteId o symbolIn, symbolOut, amountIn, amountOut, y paymentMethodId`.
 
-### Off ramp
+#### Off ramp
 
-Requiere: `destinationAddress`,  `quoteId o symbolIn, symbolOut, amountIn, amountOut.`
+Requiere: `destinationAddress`, `quoteId o symbolIn, symbolOut, amountIn, amountOut.`
 
 Opcional: `email` (obligatorio si no se está autenticado con email), `documentNumber` (para facilitar la conciliación bancaria).
 
@@ -345,7 +345,7 @@ mutation createOrder($input: OrderInput!) {
 }
 ```
 
-## Consultar Orden
+### Consultar Orden
 
 Retorna información de una order. Recibe un `orderId`.
 
@@ -385,7 +385,7 @@ query getOrder($input: GetOrderInput!) {
 }
 ```
 
-## Lista de órdenes pasadas
+### Lista de órdenes pasadas
 
 Retorna una lista de todas las órdenes asociadas al `clientId` o al `email` especificado al autenticarse.
 
@@ -443,7 +443,7 @@ query orders($input: PaginationInput!) {
 
 <summary>Servicios Bancarios</summary>
 
-### Get Bank Account
+#### Get Bank Account
 
 Retorna una lista de cuentas bancarias asociadas al usuario, filtrados de acuerdo a `countryCode` y `currencySymbol`.
 
@@ -468,7 +468,7 @@ query getBankAccount($filters: FiltersBankAccount!) {
 }
 ```
 
-### Get Bank Info by Country
+#### Get Bank Info by Country
 
 Retorna una lista con los bancos que son soportados para un `countryCode` dado.
 
@@ -487,7 +487,7 @@ query getBankInfoByCountry($countryCode: String!) {
 }
 ```
 
-### Create Bank Account
+#### Create Bank Account
 
 Crea una nueva cuenta bancaria y la guarda para futuras operaciones.
 
@@ -520,7 +520,7 @@ mutation createBankAccount($input: BankAccountInput!) {
 }
 ```
 
-### Delete Bank Account
+#### Delete Bank Account
 
 Elimina una cuenta bancaria de la lista de cuentas guardadas.
 
