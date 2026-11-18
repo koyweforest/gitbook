@@ -19,7 +19,7 @@ curl --request POST \
     --header 'content-type: application/json' \
     --header 'Authorization: Bearer JWTTOKEN' \
     --url 'https://api-test.koywe.com/graphql' \
-    --data '{"query":"mutation authenticate($input: AuthInput!) {\n  authenticate(input: $input) {\n    token\n  }\n}","variables":{"input":{"clientId":"63631a561f41f8fd18f8c3e0","secret":"supersecretstringFTW"}}}'
+    --data '{"query":"mutation authenticate($input: AuthInput!) {\n  authenticate(input: $input) {\n    token\n  }\n}","variables":{"input":{"clientId":"000000000000000000000001","secret":"supersecretstringFTW"}}}'
 ```
 
 En los ejemplos siguientes sólo pondremos el objeto JSON del request.
@@ -43,9 +43,9 @@ mutation Authenticate($input: AuthInput!) {
 "variables" :
 {
   "input": {
-    "clientId": "63631a561f41f8fd18f8c3e0",
+    "clientId": "000000000000000000000001",
     "secret": "secretpassword",
-    "email": "email@domain.com" # optional
+    "email": "user@example.com" # optional
   }
 }
 ```
@@ -69,7 +69,7 @@ mutation validateAccount($input: ValidateAccountInput!) {
 "variables" :
 {
   "input": {
-    "email": "email@domain.com",
+    "email": "user@example.com",
     "clientId": "f87aad3as90fe5489bb5099f"
   }
 }
@@ -96,9 +96,9 @@ mutation validateCode($input: ValidateCodeInput!) {
 "variables" :
 {
   "input": {
-    "clientId": "40401a5615d9d8fd18f8a0b4",
+    "clientId": "000000000000000000000002",
     "code": "940577",
-    "email": "example@domain.com"
+    "email": "user@example.com"
   }
 }
 ```
@@ -240,7 +240,7 @@ Devuelve un "Quote". Recibe un `quoteId`.
 }
 "variables":
 {
-  "quoteId": "63c59396a38c6506a620162f" #Created when calling mutation quote
+  "quoteId": "000000000000000000000011" #Created when calling mutation quote
 }
 </code></pre>
 
@@ -328,16 +328,16 @@ mutation createOrder($input: OrderInput!) {
 "variables":
 {
   "input": {
-    "callbackUrl": "example@domain.com",
+    "callbackUrl": "https://example.com/callback",
     "quoteId": null, #nullable. if provided and quote is still valid, 
                     #symbolIn, symbolOut, amountIn, amountOut, 
                     #and paymentMethodId are nullable
     "amountIn": 1.100.000,
     "amountOut": 1,
-    "email": "example@domain.com", #for API calls
+    "email": "user@example.com", #for API calls
     "documentNumber": null,
-    "paymentMethodId": "632d7fe6237ded3a748112cf",  # This value corresponds to the _id value returned after calling GetPaymentProviderList
-    "destinationAddress": "0x40f9bf922c23c43acdad71Ab4425280C0ffBD697", # Will return error if address is invalid
+    "paymentMethodId": "000000000000000000000007",  # This value corresponds to the _id value returned after calling GetPaymentProviderList
+    "destinationAddress": "0x0000000000000000000000000000000000000001", # Will return error if address is invalid
     "symbolIn": "CLP",
     "symbolOut": "ETH",
     "metadata": null
@@ -380,7 +380,7 @@ query getOrder($input: GetOrderInput!) {
 "variables":
 {
   "input": {
-    "orderId": "02a5f0c7-b9bf-48e0-8b5d-190d2e2f7fc1" #Created when calling mutation Order
+    "orderId": "00000000-0000-0000-0000-000000000002" #Created when calling mutation Order
   }
 }
 ```
@@ -515,7 +515,7 @@ mutation createBankAccount($input: BankAccountInput!) {
     "countryCode": "CHL",
     "currencySymbol": "CLP",
     "documentNumber": "12345678",
-    "email": "example@domain.com"
+    "email": "user@example.com"
   }
 }
 ```
@@ -539,7 +539,7 @@ mutation deleteBankAccount($input: DeleteBankAccountInput!) {
 "variables":
 {
   "input": {
-    "_id": "63bd75901ea16ea6e23109b5", #Bank account identifier
+    "_id": "000000000000000000000016", #Bank account identifier
     "countryCode": "CHL",
     "currencySymbol": "CLP"
   }

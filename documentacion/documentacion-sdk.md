@@ -87,7 +87,7 @@ Si la billetera no es válida, el usuario se verá obligado a ingresar una manua
 Parámetro tipo String que representa el email que se usará para la compra de crypto. Si este valor no es un email válido, el usuario deberá ingresar un email manualmente.
 
 ```javascript
-new KoyweRampSDK({email: "test@koywe.com"})
+new KoyweRampSDK({email: "user@example.com"})
 ```
 
 {% hint style="info" %}

@@ -10,7 +10,7 @@ Si quieres hacer modificaciones más profundas o conectarte por API, contáctano
 
 Una vez que estés creado como partner, tendrás 2 parámetros para la integración:
 
-* **Client Id**: el identificador único de tu empresa en Koywe. Se va a ver algo así `63631a561f41f8fd18f8c3e0`
+* **Client Id**: el identificador único de tu empresa en Koywe. Se va a ver algo así `000000000000000000000001`
 * **Secret**: Un string secreto (no lo compartas) que nos permitirá determinar que en verdad eres tú, como una contraseña.
 
 Con estos 2 parámetros podrás autenticarte en la API y hacer llamados a los endpoints privados.
