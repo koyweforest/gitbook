@@ -31,7 +31,7 @@ Ejemplo de evento reportado:
 ```json
 {
   "eventName": "crypto_delivered", // event, from the list above
-  "orderId": "5a3288ea-0bd4-44d2-af11-aae1f88bbd61", // order id, see above
+  "orderId": "00000000-0000-0000-0000-000000000001", // order id, see above
   "timeStamp": "2022-10-26T22:36:41.658Z",
   "signature": "ed40d34ab7a587cf1a16338a16cc7765ae4420936677482bb33f5f738e4f7189" // hash
 }

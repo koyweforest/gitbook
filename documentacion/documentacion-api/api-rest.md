@@ -23,7 +23,7 @@ your company's unique Koywe identifier.
 ```json
 [
   {
-    "_id": "6294cd18d2b5f912da43e678",
+    "_id": "000000000000000000000004",
     "name": "Peso Chileno",
     "symbol": "CLP",
     "decimals": 0,
@@ -34,7 +34,7 @@ your company's unique Koywe identifier.
     },
     "tokens": [
       {
-        "_id": "6283b7f8c7ab3a52fd8a51fc",
+        "_id": "000000000000000000000005",
         "name": "Binance Coin",
         "symbol": "BNB",
         "decimals": 18,
@@ -79,7 +79,7 @@ your company's unique Koywe identifier.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "6294cd18d2b5f912da43e678",
+  "_id": "000000000000000000000004",
   "name": "Peso Chileno",
   "symbol": "CLP",
   "decimals": 0,
@@ -90,7 +90,7 @@ your company's unique Koywe identifier.
   },
   "tokens": [
     {
-      "_id": "6283b7f8c7ab3a52fd8a51fc",
+      "_id": "000000000000000000000005",
       "name": "Binance Coin",
       "symbol": "BNB",
       "decimals": 18,
@@ -141,14 +141,14 @@ your company's unique Koywe identifier.
 ```json
 [
   {
-    "_id": "6303d71295ee10bace884ac4",
+    "_id": "000000000000000000000006",
     "name": "Binance Coin",
     "symbol": "BNB",
     "decimals": 18,
     "logo": "url.example.com/bnb.svg",
     "currencies": [
       {
-        "_id": "6294cd18d2b5f912da43e678",
+        "_id": "000000000000000000000004",
         "name": "Peso Chileno",
         "symbol": "CLP",
         "decimals": 0,
@@ -197,14 +197,14 @@ Symbol assosiated with the token of choice.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "6303d71295ee10bace884ac4",
+  "_id": "000000000000000000000006",
   "name": "Binance Coin",
   "symbol": "BNB",
   "decimals": 18,
   "logo": "url.example.com/bnb.svg",
   "currencies": [
     {
-      "_id": "6294cd18d2b5f912da43e678",
+      "_id": "000000000000000000000004",
       "name": "Peso Chileno",
       "symbol": "CLP",
       "decimals": 0,
@@ -267,12 +267,12 @@ your company's unique Koywe identifier.
 ```json
 [
   {
-    "_id": "632d7fe6237ded3a748112cf",
+    "_id": "000000000000000000000007",
     "name": "WIRECL",
     "description": "La comisión de transferencia bancaria equivale a un 1% del total de tu compra",
     "fee": 0,
     "image": "https://rampa.koywe.com/paymentProviders/wire-cl.png",
-    "details": "Koywe SpA\nCta Cte 6824645\n76.215.256-2\nBanco Santander\ntef@koywe.com"
+    "details": "Example Company SpA\nCta Cte 0000000000\n11.111.111-1\nExample Bank\npayments@example.com"
   }
 ]
 ```
@@ -325,7 +325,7 @@ Password given along with the clientId.
 {% swagger-response status="200: OK" description="successful operation" %}
 ```json
 {
-  "token": "eyJhbGciOOqVFy_1XCnzrew_UjamXWoUWonP_4xoPmcSTz23OEvPPxW2syFkvakDskIovOyCU2WzlLs0nMhY6UnKQzpGhN9DclXdVG89xyJOB9ri2GKAW8pIIbguioTgqhykpaaSxRoDFtIvsGD8ptDMoF4xp1aZG2Tq_23MFVrF8EbTzHTx0DB4Gt2hWY5W5nabEU9gts0PqIbuEWVhD4KryrOQv5vmbfr2GuXRx_194zAD2ixSfxyiWnhAN_FMvzmj2wwe-GWWLaKH35yqHfwNRJIkYqEX5TL5T0KFR5izWbGJoyR6EXn6MU1-SrO1by22HmLlKF7Fs-2zXSYTT31a5KnWenA2UPMWbLUbsP_xY3ESWP3YY2k7QRkqIP-Rl90RYHi5_z2"
+  "token": "YOUR_ACCESS_TOKEN"
 }
 ```
 {% endswagger-response %}
@@ -399,7 +399,7 @@ email you want the code to be sent at.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "63c80872b85f35f37e567064"
+  "_id": "000000000000000000000015"
 }
 ```
 {% endswagger-response %}
@@ -441,7 +441,7 @@ Your company's unique Koywe identifier.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pY29sYXNAa295d2UuY29tIiwibWV0YUFjY291bnQiOiI2Mzg4ZDVjNzA2YmFkOWIxNjE1MWYzNmEiLCJjbGllbnRBdXRoIjpmYWxzZSwiaWF0IjoxNjc0NTAzMzE2LCJleHAiOjE2NzQ1NDY1MTZ9.C1aL9-FSL-VF8t9wce--4M6ZB_d1IHihpDuOYCmUcIT_-M3Fvp2Zds1HSI9WKPjvCj4zLhCBIX9Z8MExhOPinLsjWJO_SC96YFzo7HjZRZgRKgRNMjPaz5w2NSRnRKYqRbaH_ZLIcdoMu1hD7y1wQhsSh1TXQ9MuWfXZvto-484geJ5FWjkmaV5QpNIP-1B5OVL_skZ46Kin4uX3CMpRjeFA3
+  "token": "YOUR_ACCESS_TOKEN"
 }
 ```
 {% endswagger-response %}
@@ -575,16 +575,16 @@ If quoteId is provided and quote is still valid, symbolIn, symbolOut, amountIn, 
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "orderId": "3ae57c43-6fae-4b0c-b0d5-2c35759e76d9",
-  "quoteId": "63e154dbc47d9176668a9af6",
+  "orderId": "00000000-0000-0000-0000-000000000003",
+  "quoteId": "000000000000000000000012",
   "amountIn": 1313696,
   "amountOut": 1,
   "symbolIn": "CLP",
   "symbolOut": "ETH",
-  "paymentMethodId": "63473a5f743da0f55fa04c8f",
+  "paymentMethodId": "000000000000000000000008",
   "providedAction": "url.example.com",
-  "email": "kenneth@koywe.com",
-  "documentNumber": "158289164"
+  "email": "user@example.com",
+  "documentNumber": "12345678"
 }
 ```
 {% endswagger-response %}
@@ -736,7 +736,7 @@ Number of pages shown.
 {
   "data": [
     {
-      "orderId": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50",
+      "orderId": "00000000-0000-0000-0000-000000000004",
       "quoteId": null,
       "koyweFee": 1000,
       "networkFee": 1000,
@@ -744,9 +744,9 @@ Number of pages shown.
       "symbolOut": "MATIC",
       "amountIn": 25000,
       "amountOut": 32.171150520770496,
-      "paymentMethodId": "6294d815d2b5f912da43e699",
-      "destinationAddress": "0x40f9bf922c23c43acede50Ab4425280C0ffBD697",
-      "email": "example@gmail.com",
+      "paymentMethodId": "000000000000000000000009",
+      "destinationAddress": "0x0000000000000000000000000000000000000002",
+      "email": "user@example.com",
       "exchangeRate": 746.01,
       "status": "REJECTED",
       "date": {
@@ -807,7 +807,7 @@ Order's identifier.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "orderId": "b88f4ed0-10a2-412f-be3e-b5e47abe9b50",
+  "orderId": "00000000-0000-0000-0000-000000000004",
   "quoteId": null,
   "koyweFee": 1000,
   "networkFee": 1000,
@@ -815,9 +815,9 @@ Order's identifier.
   "symbolOut": "MATIC",
   "amountIn": 25000,
   "amountOut": 32.171150520770496,
-  "paymentMethodId": "6294d815d2b5f912da43e699",
-  "destinationAddress": "0x40f9bf922c23c43acede50Ab4425280C0ffBD697",
-  "email": "example@gmail.com",
+  "paymentMethodId": "000000000000000000000009",
+  "destinationAddress": "0x0000000000000000000000000000000000000002",
+  "email": "user@example.com",
   "exchangeRate": 746.01,
   "status": "REJECTED",
   "date": {
@@ -893,7 +893,7 @@ bankCode and documentNumber are optional. documentedNumber is required when the 
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "63dd5fd9cccad469ee2408f7",
+  "_id": "000000000000000000000017",
   "bankCode": "SANTANDER",
   "countryCode": "CHL",
   "currencySymbol": "CLP",
@@ -1049,7 +1049,7 @@ Symbol of the currency of the chosen country.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "63dd5fd9cccad469ee2408f7",
+  "_id": "000000000000000000000017",
   "bankCode": "SANTANDER",
   "countryCode": "CHL",
   "currencySymbol": "CLP",
@@ -1089,7 +1089,7 @@ Symbol of the currency of the chosen country.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "_id": "63dd5fd9cccad469ee2408f7",
+  "_id": "000000000000000000000017",
   "bankCode": "SANTANDER",
   "countryCode": "CHL",
   "currencySymbol": "CLP",
@@ -1208,12 +1208,12 @@ If executable is true, we store it and return a UUID.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "quoteId": "63da8100c6d0af192f9f9e8c",
+  "quoteId": "000000000000000000000013",
   "amountIn": 238228,
   "amountOut": 1,
   "symbolIn": "CLP",
   "symbolOut": "BNB",
-  "paymentMethodId": "632d7fe6237ded3a748112cf",
+  "paymentMethodId": "000000000000000000000007",
   "exchangeRate": 235816,
   "koyweFee": 2358.16,
   "networkFee": 54,
@@ -1285,12 +1285,12 @@ The quote's identifier.
 {% swagger-response status="200: OK" description="Successful operation" %}
 ```json
 {
-  "quoteId": "63da8100c6d0af192f9f9e8c",
+  "quoteId": "000000000000000000000013",
   "amountIn": 238228,
   "amountOut": 1,
   "symbolIn": "CLP",
   "symbolOut": "BNB",
-  "paymentMethodId": "632d7fe6237ded3a748112cf",
+  "paymentMethodId": "000000000000000000000007",
   "exchangeRate": 235816,
   "koyweFee": 2358.16,
   "networkFee": 54,
